@@ -57,7 +57,7 @@ I feel the tool very intuitive, but I would like if in the report page we had a 
 
 
 ## Approach to select the scenarios
-I focused in the main functionalities, makeing sure the basics of both UI and API are working.
+I focused in the main functionalities, making sure the basics of both UI and API are working.
 
 
 ## Why are these scenarios the most important?
@@ -69,4 +69,4 @@ As the UI is only informative (we can't create or delete elements) I focused on 
 
 
 ## What could be the next steps in the project?
-After seeing the project and automate some scenarios, I think the next step would be to fix the issues with the APIs like the GET/DELETE are not working properly (the test cases might fail sometimes, as the response is not always the right one), from the automation side, we should continue with it, make the existing automation to fail if the calls don't work in the first try (right now it is trying multiple times until the call success) and automate more test cases (more endpoints and negative scenarios).
+After seeing the project and automate some scenarios, I think the next step would be to fix the issues with the APIs like the GET/DELETE are not working properly (the test cases might fail sometimes, as the response is not always the right one), from the automation side, we should continue with it, make the existing automation to fail if the calls don't work in the first try (right now it is trying multiple times until the call succeeds) and automate more test cases (more endpoints and negative scenarios).
