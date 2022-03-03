@@ -1,0 +1,3331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.0.1 (Python 3.9.4 on darwin)" generated="20220302 22:00:18.434" rpa="false" schemaversion="2">
+<suite id="s1" name="TestSuite" source="/Users/yacelismata/Documents/SpriteCloud/TestSuite">
+<suite id="s1-s1" name="API TestCases" source="/Users/yacelismata/Documents/SpriteCloud/TestSuite/API_TestCases.robot">
+<kw name="Create an API Session" library="API_resources" type="SETUP">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>pets</arg>
+<arg>${pets_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20220302 22:00:18.738" level="INFO">Creating Session using : alias=pets, url=https://petstore.swagger.io/v2/, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20220302 22:00:18.738" endtime="20220302 22:00:18.739"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:18.738" endtime="20220302 22:00:18.739"/>
+</kw>
+<test id="s1-s1-t1" name="Verify a pet can be created">
+<kw name="Create a pet" library="API_resources">
+<kw name="Send a POST request" library="API_resources">
+<arg>${endpoint}</arg>
+<arg>${body}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:00:18.741" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:00:18.740" endtime="20220302 22:00:18.741"/>
+</kw>
+<kw name="Post On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>data=${body}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:00:19.364" level="INFO">POST Request : url=https://petstore.swagger.io/v2/pet 
+ path_url=/v2/pet 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '188'} 
+ body={"category":{"id":1,"name":"category1"},"name":"dog","photoUrls":["https://a-z-animals.com/media/Poodle-Canis-familiaris-white.jpg"],"tags":[{"id":1,"name":"poodle"}],"status":"available"} 
+ </msg>
+<msg timestamp="20220302 22:00:19.364" level="INFO">POST Response : url=https://petstore.swagger.io/v2/pet 
+ status=200, reason=OK 
+ headers={'Date': 'Thu, 03 Mar 2022 03:00:19 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"id":9222968140497181044,"category":{"id":1,"name":"category1"},"name":"dog","photoUrls":["https://a-z-animals.com/media/Poodle-Canis-familiaris-white.jpg"],"tags":[{"id":1,"name":"poodle"}],"status":"available"} 
+ </msg>
+<msg timestamp="20220302 22:00:19.364" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:00:19.364" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:00:18.741" endtime="20220302 22:00:19.364"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:19.365" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:00:19.365" endtime="20220302 22:00:19.365"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:18.740" endtime="20220302 22:00:19.366"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20220302 22:00:19.367" level="INFO">{"id":9222968140497181044,"category":{"id":1,"name":"category1"},"name":"dog","photoUrls":["https://a-z-animals.com/media/Poodle-Canis-familiaris-white.jpg"],"tags":[{"id":1,"name":"poodle"}],"status":"available"}</msg>
+<status status="PASS" starttime="20220302 22:00:19.366" endtime="20220302 22:00:19.367"/>
+</kw>
+<kw name="Get The Json Response Data" library="API_resources">
+<kw name="Evaluate" library="BuiltIn">
+<var>${response}</var>
+<arg>json.loads("""${logs}""")</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220302 22:00:19.368" level="INFO">${response} = {'id': 9222968140497181044, 'category': {'id': 1, 'name': 'category1'}, 'name': 'dog', 'photoUrls': ['https://a-z-animals.com/media/Poodle-Canis-familiaris-white.jpg'], 'tags': [{'id': 1, 'name': 'poo...</msg>
+<status status="PASS" starttime="20220302 22:00:19.368" endtime="20220302 22:00:19.368"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:19.369" level="INFO">${response} = {'id': 9222968140497181044, 'category': {'id': 1, 'name': 'category1'}, 'name': 'dog', 'photoUrls': ['https://a-z-animals.com/media/Poodle-Canis-familiaris-white.jpg'], 'tags': [{'id': 1, 'name': 'poo...</msg>
+<status status="PASS" starttime="20220302 22:00:19.369" endtime="20220302 22:00:19.369"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:19.367" endtime="20220302 22:00:19.369"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:18.739" endtime="20220302 22:00:19.369"/>
+</kw>
+<kw name="Get attribute value" library="API_resources">
+<var>${pet_id}</var>
+<arg>$.id</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${att_value}</var>
+<arg>${source}</arg>
+<arg>${att}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220302 22:00:19.401" level="INFO">${att_value} = [9222968140497181044]</msg>
+<status status="PASS" starttime="20220302 22:00:19.370" endtime="20220302 22:00:19.402"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220302 22:00:19.402" level="INFO">${att_value} = [9222968140497181044]</msg>
+<status status="PASS" starttime="20220302 22:00:19.402" endtime="20220302 22:00:19.402"/>
+</kw>
+<kw name="Remove String" library="String">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<arg>[</arg>
+<arg>'</arg>
+<arg>]</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<msg timestamp="20220302 22:00:19.402" level="INFO">${att_value} = 9222968140497181044</msg>
+<status status="PASS" starttime="20220302 22:00:19.402" endtime="20220302 22:00:19.402"/>
+</kw>
+<msg timestamp="20220302 22:00:19.403" level="INFO">${pet_id} = 9222968140497181044</msg>
+<status status="PASS" starttime="20220302 22:00:19.370" endtime="20220302 22:00:19.403"/>
+</kw>
+<kw name="Get attribute value" library="API_resources">
+<var>${pet_name}</var>
+<arg>$.name</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${att_value}</var>
+<arg>${source}</arg>
+<arg>${att}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220302 22:00:19.425" level="INFO">${att_value} = ['dog']</msg>
+<status status="PASS" starttime="20220302 22:00:19.403" endtime="20220302 22:00:19.425"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220302 22:00:19.426" level="INFO">${att_value} = ['dog']</msg>
+<status status="PASS" starttime="20220302 22:00:19.425" endtime="20220302 22:00:19.426"/>
+</kw>
+<kw name="Remove String" library="String">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<arg>[</arg>
+<arg>'</arg>
+<arg>]</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<msg timestamp="20220302 22:00:19.426" level="INFO">${att_value} = dog</msg>
+<status status="PASS" starttime="20220302 22:00:19.426" endtime="20220302 22:00:19.426"/>
+</kw>
+<msg timestamp="20220302 22:00:19.427" level="INFO">${pet_name} = dog</msg>
+<status status="PASS" starttime="20220302 22:00:19.403" endtime="20220302 22:00:19.427"/>
+</kw>
+<kw name="Get attribute value" library="API_resources">
+<var>${pet_tag_name}</var>
+<arg>$.tags..name</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${att_value}</var>
+<arg>${source}</arg>
+<arg>${att}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220302 22:00:19.448" level="INFO">${att_value} = ['poodle']</msg>
+<status status="PASS" starttime="20220302 22:00:19.427" endtime="20220302 22:00:19.448"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220302 22:00:19.449" level="INFO">${att_value} = ['poodle']</msg>
+<status status="PASS" starttime="20220302 22:00:19.449" endtime="20220302 22:00:19.449"/>
+</kw>
+<kw name="Remove String" library="String">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<arg>[</arg>
+<arg>'</arg>
+<arg>]</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<msg timestamp="20220302 22:00:19.449" level="INFO">${att_value} = poodle</msg>
+<status status="PASS" starttime="20220302 22:00:19.449" endtime="20220302 22:00:19.449"/>
+</kw>
+<msg timestamp="20220302 22:00:19.450" level="INFO">${pet_tag_name} = poodle</msg>
+<status status="PASS" starttime="20220302 22:00:19.427" endtime="20220302 22:00:19.450"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${pet_name}</arg>
+<arg>dog</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220302 22:00:19.450" endtime="20220302 22:00:19.450"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${pet_tag_name}</arg>
+<arg>poodle</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220302 22:00:19.450" endtime="20220302 22:00:19.450"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${pet_id}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:19.451" level="INFO">${pet_id} = 9222968140497181044</msg>
+<status status="PASS" starttime="20220302 22:00:19.451" endtime="20220302 22:00:19.451"/>
+</kw>
+<kw name="Delete a pet" library="API_resources" type="TEARDOWN">
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>1 min</arg>
+<arg>5s</arg>
+<arg>Send a DELETE request</arg>
+<arg>pet/${id}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Send a DELETE request" library="API_resources">
+<arg>pet/${id}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:00:19.452" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:00:19.452" endtime="20220302 22:00:19.452"/>
+</kw>
+<kw name="Delete On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:00:19.551" level="INFO">DELETE Request : url=https://petstore.swagger.io/v2/pet/9222968140497181044 
+ path_url=/v2/pet/9222968140497181044 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:00:19.551" level="INFO">DELETE Response : url=https://petstore.swagger.io/v2/pet/9222968140497181044 
+ status=200, reason=OK 
+ headers={'Date': 'Thu, 03 Mar 2022 03:00:19 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"code":200,"type":"unknown","message":"9222968140497181044"} 
+ </msg>
+<msg timestamp="20220302 22:00:19.551" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:00:19.551" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:00:19.453" endtime="20220302 22:00:19.551"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:19.552" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:00:19.551" endtime="20220302 22:00:19.552"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:19.452" endtime="20220302 22:00:19.552"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:19.451" endtime="20220302 22:00:19.552"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20220302 22:00:19.553" level="INFO">{"code":200,"type":"unknown","message":"9222968140497181044"}</msg>
+<status status="PASS" starttime="20220302 22:00:19.552" endtime="20220302 22:00:19.553"/>
+</kw>
+<kw name="Get The Json Response Data" library="API_resources">
+<kw name="Evaluate" library="BuiltIn">
+<var>${response}</var>
+<arg>json.loads("""${logs}""")</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220302 22:00:19.554" level="INFO">${response} = {'code': 200, 'type': 'unknown', 'message': '9222968140497181044'}</msg>
+<status status="PASS" starttime="20220302 22:00:19.554" endtime="20220302 22:00:19.554"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:19.555" level="INFO">${response} = {'code': 200, 'type': 'unknown', 'message': '9222968140497181044'}</msg>
+<status status="PASS" starttime="20220302 22:00:19.554" endtime="20220302 22:00:19.555"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:19.553" endtime="20220302 22:00:19.555"/>
+</kw>
+<kw name="Get attribute value" library="API_resources">
+<var>${response_message}</var>
+<arg>$.message</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${att_value}</var>
+<arg>${source}</arg>
+<arg>${att}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220302 22:00:19.577" level="INFO">${att_value} = ['9222968140497181044']</msg>
+<status status="PASS" starttime="20220302 22:00:19.555" endtime="20220302 22:00:19.577"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220302 22:00:19.577" level="INFO">${att_value} = ['9222968140497181044']</msg>
+<status status="PASS" starttime="20220302 22:00:19.577" endtime="20220302 22:00:19.577"/>
+</kw>
+<kw name="Remove String" library="String">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<arg>[</arg>
+<arg>'</arg>
+<arg>]</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<msg timestamp="20220302 22:00:19.578" level="INFO">${att_value} = 9222968140497181044</msg>
+<status status="PASS" starttime="20220302 22:00:19.577" endtime="20220302 22:00:19.578"/>
+</kw>
+<msg timestamp="20220302 22:00:19.578" level="INFO">${response_message} = 9222968140497181044</msg>
+<status status="PASS" starttime="20220302 22:00:19.555" endtime="20220302 22:00:19.578"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${response_message}</arg>
+<arg>${pet_id}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220302 22:00:19.578" endtime="20220302 22:00:19.579"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:19.451" endtime="20220302 22:00:19.579"/>
+</kw>
+<tag>id=5</tag>
+<status status="PASS" starttime="20220302 22:00:18.739" endtime="20220302 22:00:19.579"/>
+</test>
+<test id="s1-s1-t2" name="Verify a created pet can be get by the id">
+<kw name="Create a pet" library="API_resources" type="SETUP">
+<kw name="Send a POST request" library="API_resources">
+<arg>${endpoint}</arg>
+<arg>${body}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:00:19.581" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:00:19.581" endtime="20220302 22:00:19.581"/>
+</kw>
+<kw name="Post On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>data=${body}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:00:19.681" level="INFO">POST Request : url=https://petstore.swagger.io/v2/pet 
+ path_url=/v2/pet 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '188'} 
+ body={"category":{"id":1,"name":"category1"},"name":"dog","photoUrls":["https://a-z-animals.com/media/Poodle-Canis-familiaris-white.jpg"],"tags":[{"id":1,"name":"poodle"}],"status":"available"} 
+ </msg>
+<msg timestamp="20220302 22:00:19.681" level="INFO">POST Response : url=https://petstore.swagger.io/v2/pet 
+ status=200, reason=OK 
+ headers={'Date': 'Thu, 03 Mar 2022 03:00:19 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"id":9222968140497181045,"category":{"id":1,"name":"category1"},"name":"dog","photoUrls":["https://a-z-animals.com/media/Poodle-Canis-familiaris-white.jpg"],"tags":[{"id":1,"name":"poodle"}],"status":"available"} 
+ </msg>
+<msg timestamp="20220302 22:00:19.682" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:00:19.682" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:00:19.581" endtime="20220302 22:00:19.682"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:19.682" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:00:19.682" endtime="20220302 22:00:19.682"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:19.580" endtime="20220302 22:00:19.682"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20220302 22:00:19.683" level="INFO">{"id":9222968140497181045,"category":{"id":1,"name":"category1"},"name":"dog","photoUrls":["https://a-z-animals.com/media/Poodle-Canis-familiaris-white.jpg"],"tags":[{"id":1,"name":"poodle"}],"status":"available"}</msg>
+<status status="PASS" starttime="20220302 22:00:19.683" endtime="20220302 22:00:19.683"/>
+</kw>
+<kw name="Get The Json Response Data" library="API_resources">
+<kw name="Evaluate" library="BuiltIn">
+<var>${response}</var>
+<arg>json.loads("""${logs}""")</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220302 22:00:19.685" level="INFO">${response} = {'id': 9222968140497181045, 'category': {'id': 1, 'name': 'category1'}, 'name': 'dog', 'photoUrls': ['https://a-z-animals.com/media/Poodle-Canis-familiaris-white.jpg'], 'tags': [{'id': 1, 'name': 'poo...</msg>
+<status status="PASS" starttime="20220302 22:00:19.684" endtime="20220302 22:00:19.685"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:19.685" level="INFO">${response} = {'id': 9222968140497181045, 'category': {'id': 1, 'name': 'category1'}, 'name': 'dog', 'photoUrls': ['https://a-z-animals.com/media/Poodle-Canis-familiaris-white.jpg'], 'tags': [{'id': 1, 'name': 'poo...</msg>
+<status status="PASS" starttime="20220302 22:00:19.685" endtime="20220302 22:00:19.685"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:19.683" endtime="20220302 22:00:19.685"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:19.580" endtime="20220302 22:00:19.686"/>
+</kw>
+<kw name="Get attribute value" library="API_resources">
+<var>${pet_id}</var>
+<arg>$.id</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${att_value}</var>
+<arg>${source}</arg>
+<arg>${att}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220302 22:00:19.721" level="INFO">${att_value} = [9222968140497181045]</msg>
+<status status="PASS" starttime="20220302 22:00:19.686" endtime="20220302 22:00:19.721"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220302 22:00:19.721" level="INFO">${att_value} = [9222968140497181045]</msg>
+<status status="PASS" starttime="20220302 22:00:19.721" endtime="20220302 22:00:19.721"/>
+</kw>
+<kw name="Remove String" library="String">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<arg>[</arg>
+<arg>'</arg>
+<arg>]</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<msg timestamp="20220302 22:00:19.722" level="INFO">${att_value} = 9222968140497181045</msg>
+<status status="PASS" starttime="20220302 22:00:19.721" endtime="20220302 22:00:19.722"/>
+</kw>
+<msg timestamp="20220302 22:00:19.722" level="INFO">${pet_id} = 9222968140497181045</msg>
+<status status="PASS" starttime="20220302 22:00:19.686" endtime="20220302 22:00:19.722"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${pet_id}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:19.722" level="INFO">${pet_id} = 9222968140497181045</msg>
+<status status="PASS" starttime="20220302 22:00:19.722" endtime="20220302 22:00:19.723"/>
+</kw>
+<kw name="Get a pet" library="API_resources">
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>1 min</arg>
+<arg>5s</arg>
+<arg>Send a GET request</arg>
+<arg>pet/${id}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Send a GET request" library="API_resources">
+<arg>pet/${id}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:00:19.724" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:00:19.724" endtime="20220302 22:00:19.724"/>
+</kw>
+<kw name="Get On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:00:19.823" level="INFO">GET Request : url=https://petstore.swagger.io/v2/pet/9222968140497181045 
+ path_url=/v2/pet/9222968140497181045 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:00:19.824" level="INFO">GET Response : url=https://petstore.swagger.io/v2/pet/9222968140497181045 
+ status=200, reason=OK 
+ headers={'Date': 'Thu, 03 Mar 2022 03:00:19 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"id":9222968140497181045,"category":{"id":0,"name":"string"},"name":"Max","photoUrls":["string"],"tags":[{"id":0,"name":"string"}],"status":"string"} 
+ </msg>
+<msg timestamp="20220302 22:00:19.824" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:00:19.824" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:00:19.724" endtime="20220302 22:00:19.824"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:19.825" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:00:19.824" endtime="20220302 22:00:19.825"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:19.723" endtime="20220302 22:00:19.825"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:19.723" endtime="20220302 22:00:19.825"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20220302 22:00:19.826" level="INFO">{"id":9222968140497181045,"category":{"id":0,"name":"string"},"name":"Max","photoUrls":["string"],"tags":[{"id":0,"name":"string"}],"status":"string"}</msg>
+<status status="PASS" starttime="20220302 22:00:19.825" endtime="20220302 22:00:19.826"/>
+</kw>
+<kw name="Get The Json Response Data" library="API_resources">
+<kw name="Evaluate" library="BuiltIn">
+<var>${response}</var>
+<arg>json.loads("""${logs}""")</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220302 22:00:19.827" level="INFO">${response} = {'id': 9222968140497181045, 'category': {'id': 0, 'name': 'string'}, 'name': 'Max', 'photoUrls': ['string'], 'tags': [{'id': 0, 'name': 'string'}], 'status': 'string'}</msg>
+<status status="PASS" starttime="20220302 22:00:19.827" endtime="20220302 22:00:19.827"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:19.828" level="INFO">${response} = {'id': 9222968140497181045, 'category': {'id': 0, 'name': 'string'}, 'name': 'Max', 'photoUrls': ['string'], 'tags': [{'id': 0, 'name': 'string'}], 'status': 'string'}</msg>
+<status status="PASS" starttime="20220302 22:00:19.828" endtime="20220302 22:00:19.828"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:19.826" endtime="20220302 22:00:19.828"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:19.723" endtime="20220302 22:00:19.828"/>
+</kw>
+<kw name="Get attribute value" library="API_resources">
+<var>${returned_id}</var>
+<arg>$.id</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${att_value}</var>
+<arg>${source}</arg>
+<arg>${att}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220302 22:00:19.855" level="INFO">${att_value} = [9222968140497181045]</msg>
+<status status="PASS" starttime="20220302 22:00:19.829" endtime="20220302 22:00:19.855"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220302 22:00:19.856" level="INFO">${att_value} = [9222968140497181045]</msg>
+<status status="PASS" starttime="20220302 22:00:19.855" endtime="20220302 22:00:19.856"/>
+</kw>
+<kw name="Remove String" library="String">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<arg>[</arg>
+<arg>'</arg>
+<arg>]</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<msg timestamp="20220302 22:00:19.856" level="INFO">${att_value} = 9222968140497181045</msg>
+<status status="PASS" starttime="20220302 22:00:19.856" endtime="20220302 22:00:19.856"/>
+</kw>
+<msg timestamp="20220302 22:00:19.856" level="INFO">${returned_id} = 9222968140497181045</msg>
+<status status="PASS" starttime="20220302 22:00:19.829" endtime="20220302 22:00:19.856"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${returned_id}</arg>
+<arg>${pet_id}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220302 22:00:19.857" endtime="20220302 22:00:19.857"/>
+</kw>
+<kw name="Get attribute value" library="API_resources">
+<var>${pet_tag_name}</var>
+<arg>$.tags..name</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${att_value}</var>
+<arg>${source}</arg>
+<arg>${att}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220302 22:00:19.881" level="INFO">${att_value} = ['string']</msg>
+<status status="PASS" starttime="20220302 22:00:19.858" endtime="20220302 22:00:19.881"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220302 22:00:19.881" level="INFO">${att_value} = ['string']</msg>
+<status status="PASS" starttime="20220302 22:00:19.881" endtime="20220302 22:00:19.881"/>
+</kw>
+<kw name="Remove String" library="String">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<arg>[</arg>
+<arg>'</arg>
+<arg>]</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<msg timestamp="20220302 22:00:19.882" level="INFO">${att_value} = string</msg>
+<status status="PASS" starttime="20220302 22:00:19.881" endtime="20220302 22:00:19.882"/>
+</kw>
+<msg timestamp="20220302 22:00:19.882" level="INFO">${pet_tag_name} = string</msg>
+<status status="PASS" starttime="20220302 22:00:19.857" endtime="20220302 22:00:19.882"/>
+</kw>
+<if>
+<branch type="IF" condition="'${pet_tag_name}' == 'poodle'">
+<kw name="Log To Console" library="BuiltIn">
+<arg>The retrieved data is correct</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20220302 22:00:19.882" endtime="20220302 22:00:19.882"/>
+</kw>
+<status status="NOT RUN" starttime="20220302 22:00:19.882" endtime="20220302 22:00:19.882"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log To Console" library="BuiltIn">
+<arg>The retrieved data is incorrect</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220302 22:00:19.882" endtime="20220302 22:00:19.883"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:19.882" endtime="20220302 22:00:19.883"/>
+</branch>
+<status status="PASS" starttime="20220302 22:00:19.882" endtime="20220302 22:00:19.883"/>
+</if>
+<kw name="Delete a pet" library="API_resources" type="TEARDOWN">
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>1 min</arg>
+<arg>5s</arg>
+<arg>Send a DELETE request</arg>
+<arg>pet/${id}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Send a DELETE request" library="API_resources">
+<arg>pet/${id}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:00:19.884" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:00:19.884" endtime="20220302 22:00:19.884"/>
+</kw>
+<kw name="Delete On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:00:19.984" level="INFO">DELETE Request : url=https://petstore.swagger.io/v2/pet/9222968140497181045 
+ path_url=/v2/pet/9222968140497181045 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:00:19.984" level="INFO">DELETE Response : url=https://petstore.swagger.io/v2/pet/9222968140497181045 
+ status=200, reason=OK 
+ headers={'Date': 'Thu, 03 Mar 2022 03:00:20 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"code":200,"type":"unknown","message":"9222968140497181045"} 
+ </msg>
+<msg timestamp="20220302 22:00:19.984" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:00:19.985" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:00:19.885" endtime="20220302 22:00:19.985"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:19.986" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:00:19.985" endtime="20220302 22:00:19.986"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:19.884" endtime="20220302 22:00:19.986"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:19.883" endtime="20220302 22:00:19.986"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20220302 22:00:19.987" level="INFO">{"code":200,"type":"unknown","message":"9222968140497181045"}</msg>
+<status status="PASS" starttime="20220302 22:00:19.986" endtime="20220302 22:00:19.987"/>
+</kw>
+<kw name="Get The Json Response Data" library="API_resources">
+<kw name="Evaluate" library="BuiltIn">
+<var>${response}</var>
+<arg>json.loads("""${logs}""")</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220302 22:00:19.989" level="INFO">${response} = {'code': 200, 'type': 'unknown', 'message': '9222968140497181045'}</msg>
+<status status="PASS" starttime="20220302 22:00:19.988" endtime="20220302 22:00:19.989"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:19.990" level="INFO">${response} = {'code': 200, 'type': 'unknown', 'message': '9222968140497181045'}</msg>
+<status status="PASS" starttime="20220302 22:00:19.989" endtime="20220302 22:00:19.990"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:19.987" endtime="20220302 22:00:19.990"/>
+</kw>
+<kw name="Get attribute value" library="API_resources">
+<var>${response_message}</var>
+<arg>$.message</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${att_value}</var>
+<arg>${source}</arg>
+<arg>${att}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220302 22:00:20.017" level="INFO">${att_value} = ['9222968140497181045']</msg>
+<status status="PASS" starttime="20220302 22:00:19.991" endtime="20220302 22:00:20.017"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220302 22:00:20.017" level="INFO">${att_value} = ['9222968140497181045']</msg>
+<status status="PASS" starttime="20220302 22:00:20.017" endtime="20220302 22:00:20.018"/>
+</kw>
+<kw name="Remove String" library="String">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<arg>[</arg>
+<arg>'</arg>
+<arg>]</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<msg timestamp="20220302 22:00:20.018" level="INFO">${att_value} = 9222968140497181045</msg>
+<status status="PASS" starttime="20220302 22:00:20.018" endtime="20220302 22:00:20.018"/>
+</kw>
+<msg timestamp="20220302 22:00:20.018" level="INFO">${response_message} = 9222968140497181045</msg>
+<status status="PASS" starttime="20220302 22:00:19.990" endtime="20220302 22:00:20.018"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${response_message}</arg>
+<arg>${pet_id}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220302 22:00:20.018" endtime="20220302 22:00:20.019"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:19.883" endtime="20220302 22:00:20.019"/>
+</kw>
+<tag>id=6</tag>
+<status status="PASS" starttime="20220302 22:00:19.579" endtime="20220302 22:00:20.019"/>
+</test>
+<test id="s1-s1-t3" name="Verify a pet order can be placed">
+<kw name="Get the actual date" library="API_resources">
+<kw name="Get Current Date" library="DateTime">
+<var>${actual_date}</var>
+<arg>exclude_millis=yes</arg>
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<msg timestamp="20220302 22:00:20.021" level="INFO">${actual_date} = 2022-03-02 22:00:20</msg>
+<status status="PASS" starttime="20220302 22:00:20.020" endtime="20220302 22:00:20.021"/>
+</kw>
+<kw name="Convert Date" library="DateTime">
+<var>${actual_date}</var>
+<arg>${actual_date}</arg>
+<arg>result_format=%Y-%m-%d</arg>
+<doc>Converts between supported `date formats`.</doc>
+<msg timestamp="20220302 22:00:20.024" level="INFO">${actual_date} = 2022-03-02</msg>
+<status status="PASS" starttime="20220302 22:00:20.021" endtime="20220302 22:00:20.024"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${actual_date}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:20.025" level="INFO">${actual_date} = 2022-03-02</msg>
+<status status="PASS" starttime="20220302 22:00:20.024" endtime="20220302 22:00:20.025"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:20.020" endtime="20220302 22:00:20.025"/>
+</kw>
+<kw name="Order a pet" library="API_resources">
+<kw name="Send a POST request" library="API_resources">
+<arg>store/order</arg>
+<arg>${body}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:00:20.026" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:00:20.026" endtime="20220302 22:00:20.026"/>
+</kw>
+<kw name="Post On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>data=${body}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:00:20.126" level="INFO">POST Request : url=https://petstore.swagger.io/v2/store/order 
+ path_url=/v2/store/order 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '50'} 
+ body={"petId":123,"quantity":1,"shipDate":"2022-03-02"} 
+ </msg>
+<msg timestamp="20220302 22:00:20.126" level="INFO">POST Response : url=https://petstore.swagger.io/v2/store/order 
+ status=200, reason=OK 
+ headers={'Date': 'Thu, 03 Mar 2022 03:00:20 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"id":17,"petId":123,"quantity":1,"shipDate":"2022-03-02T00:00:00.000+0000","complete":false} 
+ </msg>
+<msg timestamp="20220302 22:00:20.126" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:00:20.126" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:00:20.027" endtime="20220302 22:00:20.126"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:20.127" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:00:20.126" endtime="20220302 22:00:20.127"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:20.026" endtime="20220302 22:00:20.127"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20220302 22:00:20.128" level="INFO">{"id":17,"petId":123,"quantity":1,"shipDate":"2022-03-02T00:00:00.000+0000","complete":false}</msg>
+<status status="PASS" starttime="20220302 22:00:20.127" endtime="20220302 22:00:20.128"/>
+</kw>
+<kw name="Get The Json Response Data" library="API_resources">
+<kw name="Evaluate" library="BuiltIn">
+<var>${response}</var>
+<arg>json.loads("""${logs}""")</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220302 22:00:20.130" level="INFO">${response} = {'id': 17, 'petId': 123, 'quantity': 1, 'shipDate': '2022-03-02T00:00:00.000+0000', 'complete': False}</msg>
+<status status="PASS" starttime="20220302 22:00:20.130" endtime="20220302 22:00:20.130"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:20.131" level="INFO">${response} = {'id': 17, 'petId': 123, 'quantity': 1, 'shipDate': '2022-03-02T00:00:00.000+0000', 'complete': False}</msg>
+<status status="PASS" starttime="20220302 22:00:20.130" endtime="20220302 22:00:20.131"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:20.128" endtime="20220302 22:00:20.131"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:20.025" endtime="20220302 22:00:20.131"/>
+</kw>
+<kw name="Get attribute value" library="API_resources">
+<var>${order_id}</var>
+<arg>$.id</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${att_value}</var>
+<arg>${source}</arg>
+<arg>${att}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220302 22:00:20.158" level="INFO">${att_value} = [17]</msg>
+<status status="PASS" starttime="20220302 22:00:20.132" endtime="20220302 22:00:20.159"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220302 22:00:20.159" level="INFO">${att_value} = [17]</msg>
+<status status="PASS" starttime="20220302 22:00:20.159" endtime="20220302 22:00:20.159"/>
+</kw>
+<kw name="Remove String" library="String">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<arg>[</arg>
+<arg>'</arg>
+<arg>]</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<msg timestamp="20220302 22:00:20.160" level="INFO">${att_value} = 17</msg>
+<status status="PASS" starttime="20220302 22:00:20.159" endtime="20220302 22:00:20.160"/>
+</kw>
+<msg timestamp="20220302 22:00:20.160" level="INFO">${order_id} = 17</msg>
+<status status="PASS" starttime="20220302 22:00:20.131" endtime="20220302 22:00:20.160"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${order_id}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:20.160" level="INFO">${order_id} = 17</msg>
+<status status="PASS" starttime="20220302 22:00:20.160" endtime="20220302 22:00:20.160"/>
+</kw>
+<kw name="Get attribute value" library="API_resources">
+<var>${pet_id}</var>
+<arg>$.petId</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${att_value}</var>
+<arg>${source}</arg>
+<arg>${att}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220302 22:00:20.184" level="INFO">${att_value} = [123]</msg>
+<status status="PASS" starttime="20220302 22:00:20.161" endtime="20220302 22:00:20.184"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220302 22:00:20.184" level="INFO">${att_value} = [123]</msg>
+<status status="PASS" starttime="20220302 22:00:20.184" endtime="20220302 22:00:20.184"/>
+</kw>
+<kw name="Remove String" library="String">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<arg>[</arg>
+<arg>'</arg>
+<arg>]</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<msg timestamp="20220302 22:00:20.185" level="INFO">${att_value} = 123</msg>
+<status status="PASS" starttime="20220302 22:00:20.185" endtime="20220302 22:00:20.185"/>
+</kw>
+<msg timestamp="20220302 22:00:20.185" level="INFO">${pet_id} = 123</msg>
+<status status="PASS" starttime="20220302 22:00:20.161" endtime="20220302 22:00:20.185"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${pet_id}</arg>
+<arg>123</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220302 22:00:20.185" endtime="20220302 22:00:20.186"/>
+</kw>
+<kw name="Get attribute value" library="API_resources">
+<var>${pet_quantity}</var>
+<arg>$.quantity</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${att_value}</var>
+<arg>${source}</arg>
+<arg>${att}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220302 22:00:20.207" level="INFO">${att_value} = [1]</msg>
+<status status="PASS" starttime="20220302 22:00:20.186" endtime="20220302 22:00:20.207"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220302 22:00:20.208" level="INFO">${att_value} = [1]</msg>
+<status status="PASS" starttime="20220302 22:00:20.208" endtime="20220302 22:00:20.208"/>
+</kw>
+<kw name="Remove String" library="String">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<arg>[</arg>
+<arg>'</arg>
+<arg>]</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<msg timestamp="20220302 22:00:20.208" level="INFO">${att_value} = 1</msg>
+<status status="PASS" starttime="20220302 22:00:20.208" endtime="20220302 22:00:20.208"/>
+</kw>
+<msg timestamp="20220302 22:00:20.209" level="INFO">${pet_quantity} = 1</msg>
+<status status="PASS" starttime="20220302 22:00:20.186" endtime="20220302 22:00:20.209"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${pet_quantity}</arg>
+<arg>1</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220302 22:00:20.209" endtime="20220302 22:00:20.209"/>
+</kw>
+<kw name="Get attribute value" library="API_resources">
+<var>${ship_date}</var>
+<arg>$.shipDate</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${att_value}</var>
+<arg>${source}</arg>
+<arg>${att}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220302 22:00:20.231" level="INFO">${att_value} = ['2022-03-02T00:00:00.000+0000']</msg>
+<status status="PASS" starttime="20220302 22:00:20.210" endtime="20220302 22:00:20.231"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220302 22:00:20.231" level="INFO">${att_value} = ['2022-03-02T00:00:00.000+0000']</msg>
+<status status="PASS" starttime="20220302 22:00:20.231" endtime="20220302 22:00:20.231"/>
+</kw>
+<kw name="Remove String" library="String">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<arg>[</arg>
+<arg>'</arg>
+<arg>]</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<msg timestamp="20220302 22:00:20.232" level="INFO">${att_value} = 2022-03-02T00:00:00.000+0000</msg>
+<status status="PASS" starttime="20220302 22:00:20.232" endtime="20220302 22:00:20.232"/>
+</kw>
+<msg timestamp="20220302 22:00:20.232" level="INFO">${ship_date} = 2022-03-02T00:00:00.000+0000</msg>
+<status status="PASS" starttime="20220302 22:00:20.209" endtime="20220302 22:00:20.232"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${ship_date}</arg>
+<arg>${actual_date}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20220302 22:00:20.232" endtime="20220302 22:00:20.233"/>
+</kw>
+<kw name="Delete a pet order" library="API_resources" type="TEARDOWN">
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>1 min</arg>
+<arg>5s</arg>
+<arg>Send a DELETE request</arg>
+<arg>store/order/${order_id}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Send a DELETE request" library="API_resources">
+<arg>store/order/${order_id}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:00:20.234" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:00:20.234" endtime="20220302 22:00:20.234"/>
+</kw>
+<kw name="Delete On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:00:20.336" level="INFO">DELETE Request : url=https://petstore.swagger.io/v2/store/order/17 
+ path_url=/v2/store/order/17 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:00:20.336" level="INFO">DELETE Response : url=https://petstore.swagger.io/v2/store/order/17 
+ status=404, reason=Not Found 
+ headers={'Date': 'Thu, 03 Mar 2022 03:00:20 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"code":404,"type":"unknown","message":"Order Not Found"} 
+ </msg>
+<msg timestamp="20220302 22:00:20.336" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:00:20.341" level="INFO">${response} = None</msg>
+<msg timestamp="20220302 22:00:20.341" level="FAIL">Url: https://petstore.swagger.io/v2/store/order/17 Expected status: 404 != 200</msg>
+<status status="FAIL" starttime="20220302 22:00:20.235" endtime="20220302 22:00:20.341"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:20.342" level="INFO">${response} = None</msg>
+<status status="PASS" starttime="20220302 22:00:20.341" endtime="20220302 22:00:20.342"/>
+</kw>
+<status status="FAIL" starttime="20220302 22:00:20.234" endtime="20220302 22:00:20.342"/>
+</kw>
+<kw name="Send a DELETE request" library="API_resources">
+<arg>store/order/${order_id}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:00:25.345" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:00:25.345" endtime="20220302 22:00:25.345"/>
+</kw>
+<kw name="Delete On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:00:25.447" level="INFO">DELETE Request : url=https://petstore.swagger.io/v2/store/order/17 
+ path_url=/v2/store/order/17 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:00:25.447" level="INFO">DELETE Response : url=https://petstore.swagger.io/v2/store/order/17 
+ status=404, reason=Not Found 
+ headers={'Date': 'Thu, 03 Mar 2022 03:00:25 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"code":404,"type":"unknown","message":"Order Not Found"} 
+ </msg>
+<msg timestamp="20220302 22:00:25.447" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:00:25.448" level="INFO">${response} = None</msg>
+<msg timestamp="20220302 22:00:25.448" level="FAIL">Url: https://petstore.swagger.io/v2/store/order/17 Expected status: 404 != 200</msg>
+<status status="FAIL" starttime="20220302 22:00:25.345" endtime="20220302 22:00:25.448"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:25.449" level="INFO">${response} = None</msg>
+<status status="PASS" starttime="20220302 22:00:25.448" endtime="20220302 22:00:25.449"/>
+</kw>
+<status status="FAIL" starttime="20220302 22:00:25.343" endtime="20220302 22:00:25.449"/>
+</kw>
+<kw name="Send a DELETE request" library="API_resources">
+<arg>store/order/${order_id}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:00:30.453" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:00:30.453" endtime="20220302 22:00:30.453"/>
+</kw>
+<kw name="Delete On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:00:30.562" level="INFO">DELETE Request : url=https://petstore.swagger.io/v2/store/order/17 
+ path_url=/v2/store/order/17 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:00:30.563" level="INFO">DELETE Response : url=https://petstore.swagger.io/v2/store/order/17 
+ status=404, reason=Not Found 
+ headers={'Date': 'Thu, 03 Mar 2022 03:00:30 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"code":404,"type":"unknown","message":"Order Not Found"} 
+ </msg>
+<msg timestamp="20220302 22:00:30.563" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:00:30.563" level="INFO">${response} = None</msg>
+<msg timestamp="20220302 22:00:30.563" level="FAIL">Url: https://petstore.swagger.io/v2/store/order/17 Expected status: 404 != 200</msg>
+<status status="FAIL" starttime="20220302 22:00:30.454" endtime="20220302 22:00:30.564"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:30.564" level="INFO">${response} = None</msg>
+<status status="PASS" starttime="20220302 22:00:30.564" endtime="20220302 22:00:30.565"/>
+</kw>
+<status status="FAIL" starttime="20220302 22:00:30.452" endtime="20220302 22:00:30.565"/>
+</kw>
+<kw name="Send a DELETE request" library="API_resources">
+<arg>store/order/${order_id}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:00:35.569" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:00:35.569" endtime="20220302 22:00:35.569"/>
+</kw>
+<kw name="Delete On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:00:35.678" level="INFO">DELETE Request : url=https://petstore.swagger.io/v2/store/order/17 
+ path_url=/v2/store/order/17 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:00:35.678" level="INFO">DELETE Response : url=https://petstore.swagger.io/v2/store/order/17 
+ status=404, reason=Not Found 
+ headers={'Date': 'Thu, 03 Mar 2022 03:00:35 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"code":404,"type":"unknown","message":"Order Not Found"} 
+ </msg>
+<msg timestamp="20220302 22:00:35.678" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:00:35.679" level="INFO">${response} = None</msg>
+<msg timestamp="20220302 22:00:35.679" level="FAIL">Url: https://petstore.swagger.io/v2/store/order/17 Expected status: 404 != 200</msg>
+<status status="FAIL" starttime="20220302 22:00:35.569" endtime="20220302 22:00:35.679"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:35.680" level="INFO">${response} = None</msg>
+<status status="PASS" starttime="20220302 22:00:35.680" endtime="20220302 22:00:35.680"/>
+</kw>
+<status status="FAIL" starttime="20220302 22:00:35.567" endtime="20220302 22:00:35.681"/>
+</kw>
+<kw name="Send a DELETE request" library="API_resources">
+<arg>store/order/${order_id}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:00:40.684" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:00:40.684" endtime="20220302 22:00:40.684"/>
+</kw>
+<kw name="Delete On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:00:40.793" level="INFO">DELETE Request : url=https://petstore.swagger.io/v2/store/order/17 
+ path_url=/v2/store/order/17 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:00:40.793" level="INFO">DELETE Response : url=https://petstore.swagger.io/v2/store/order/17 
+ status=200, reason=OK 
+ headers={'Date': 'Thu, 03 Mar 2022 03:00:40 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"code":200,"type":"unknown","message":"17"} 
+ </msg>
+<msg timestamp="20220302 22:00:40.794" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:00:40.794" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:00:40.684" endtime="20220302 22:00:40.794"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:40.795" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:00:40.794" endtime="20220302 22:00:40.795"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:40.682" endtime="20220302 22:00:40.795"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:20.233" endtime="20220302 22:00:40.795"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20220302 22:00:40.796" level="INFO">{"code":200,"type":"unknown","message":"17"}</msg>
+<status status="PASS" starttime="20220302 22:00:40.795" endtime="20220302 22:00:40.796"/>
+</kw>
+<kw name="Get The Json Response Data" library="API_resources">
+<kw name="Evaluate" library="BuiltIn">
+<var>${response}</var>
+<arg>json.loads("""${logs}""")</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220302 22:00:40.798" level="INFO">${response} = {'code': 200, 'type': 'unknown', 'message': '17'}</msg>
+<status status="PASS" starttime="20220302 22:00:40.798" endtime="20220302 22:00:40.798"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:40.799" level="INFO">${response} = {'code': 200, 'type': 'unknown', 'message': '17'}</msg>
+<status status="PASS" starttime="20220302 22:00:40.798" endtime="20220302 22:00:40.799"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:40.797" endtime="20220302 22:00:40.799"/>
+</kw>
+<kw name="Get attribute value" library="API_resources">
+<var>${response_message}</var>
+<arg>$.message</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${att_value}</var>
+<arg>${source}</arg>
+<arg>${att}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220302 22:00:40.824" level="INFO">${att_value} = ['17']</msg>
+<status status="PASS" starttime="20220302 22:00:40.800" endtime="20220302 22:00:40.824"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220302 22:00:40.825" level="INFO">${att_value} = ['17']</msg>
+<status status="PASS" starttime="20220302 22:00:40.825" endtime="20220302 22:00:40.825"/>
+</kw>
+<kw name="Remove String" library="String">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<arg>[</arg>
+<arg>'</arg>
+<arg>]</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<msg timestamp="20220302 22:00:40.825" level="INFO">${att_value} = 17</msg>
+<status status="PASS" starttime="20220302 22:00:40.825" endtime="20220302 22:00:40.825"/>
+</kw>
+<msg timestamp="20220302 22:00:40.826" level="INFO">${response_message} = 17</msg>
+<status status="PASS" starttime="20220302 22:00:40.799" endtime="20220302 22:00:40.826"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${response_message}</arg>
+<arg>${order_id}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220302 22:00:40.826" endtime="20220302 22:00:40.826"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:20.233" endtime="20220302 22:00:40.826"/>
+</kw>
+<tag>id=7</tag>
+<status status="PASS" starttime="20220302 22:00:20.019" endtime="20220302 22:00:40.826"/>
+</test>
+<test id="s1-s1-t4" name="Verify a pet order can be retrieved using the order id">
+<kw name="Get the actual date" library="API_resources">
+<kw name="Get Current Date" library="DateTime">
+<var>${actual_date}</var>
+<arg>exclude_millis=yes</arg>
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<msg timestamp="20220302 22:00:40.827" level="INFO">${actual_date} = 2022-03-02 22:00:41</msg>
+<status status="PASS" starttime="20220302 22:00:40.827" endtime="20220302 22:00:40.828"/>
+</kw>
+<kw name="Convert Date" library="DateTime">
+<var>${actual_date}</var>
+<arg>${actual_date}</arg>
+<arg>result_format=%Y-%m-%d</arg>
+<doc>Converts between supported `date formats`.</doc>
+<msg timestamp="20220302 22:00:40.828" level="INFO">${actual_date} = 2022-03-02</msg>
+<status status="PASS" starttime="20220302 22:00:40.828" endtime="20220302 22:00:40.828"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${actual_date}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:40.828" level="INFO">${actual_date} = 2022-03-02</msg>
+<status status="PASS" starttime="20220302 22:00:40.828" endtime="20220302 22:00:40.828"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:40.827" endtime="20220302 22:00:40.829"/>
+</kw>
+<kw name="Order a pet" library="API_resources">
+<kw name="Send a POST request" library="API_resources">
+<arg>store/order</arg>
+<arg>${body}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:00:40.830" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:00:40.829" endtime="20220302 22:00:40.830"/>
+</kw>
+<kw name="Post On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>data=${body}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:00:41.024" level="INFO">POST Request : url=https://petstore.swagger.io/v2/store/order 
+ path_url=/v2/store/order 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '50'} 
+ body={"petId":123,"quantity":1,"shipDate":"2022-03-02"} 
+ </msg>
+<msg timestamp="20220302 22:00:41.024" level="INFO">POST Response : url=https://petstore.swagger.io/v2/store/order 
+ status=200, reason=OK 
+ headers={'Date': 'Thu, 03 Mar 2022 03:00:41 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"id":17,"petId":123,"quantity":1,"shipDate":"2022-03-02T00:00:00.000+0000","complete":false} 
+ </msg>
+<msg timestamp="20220302 22:00:41.024" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:00:41.025" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:00:40.830" endtime="20220302 22:00:41.025"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:41.026" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:00:41.025" endtime="20220302 22:00:41.026"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:40.829" endtime="20220302 22:00:41.026"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20220302 22:00:41.027" level="INFO">{"id":17,"petId":123,"quantity":1,"shipDate":"2022-03-02T00:00:00.000+0000","complete":false}</msg>
+<status status="PASS" starttime="20220302 22:00:41.026" endtime="20220302 22:00:41.027"/>
+</kw>
+<kw name="Get The Json Response Data" library="API_resources">
+<kw name="Evaluate" library="BuiltIn">
+<var>${response}</var>
+<arg>json.loads("""${logs}""")</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220302 22:00:41.029" level="INFO">${response} = {'id': 17, 'petId': 123, 'quantity': 1, 'shipDate': '2022-03-02T00:00:00.000+0000', 'complete': False}</msg>
+<status status="PASS" starttime="20220302 22:00:41.028" endtime="20220302 22:00:41.029"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:41.030" level="INFO">${response} = {'id': 17, 'petId': 123, 'quantity': 1, 'shipDate': '2022-03-02T00:00:00.000+0000', 'complete': False}</msg>
+<status status="PASS" starttime="20220302 22:00:41.029" endtime="20220302 22:00:41.030"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:41.027" endtime="20220302 22:00:41.030"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:40.829" endtime="20220302 22:00:41.030"/>
+</kw>
+<kw name="Get attribute value" library="API_resources">
+<var>${order_id}</var>
+<arg>$.id</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${att_value}</var>
+<arg>${source}</arg>
+<arg>${att}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220302 22:00:41.056" level="INFO">${att_value} = [17]</msg>
+<status status="PASS" starttime="20220302 22:00:41.031" endtime="20220302 22:00:41.056"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220302 22:00:41.056" level="INFO">${att_value} = [17]</msg>
+<status status="PASS" starttime="20220302 22:00:41.056" endtime="20220302 22:00:41.056"/>
+</kw>
+<kw name="Remove String" library="String">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<arg>[</arg>
+<arg>'</arg>
+<arg>]</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<msg timestamp="20220302 22:00:41.057" level="INFO">${att_value} = 17</msg>
+<status status="PASS" starttime="20220302 22:00:41.056" endtime="20220302 22:00:41.057"/>
+</kw>
+<msg timestamp="20220302 22:00:41.057" level="INFO">${order_id} = 17</msg>
+<status status="PASS" starttime="20220302 22:00:41.030" endtime="20220302 22:00:41.057"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${order_id}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:41.058" level="INFO">${order_id} = 17</msg>
+<status status="PASS" starttime="20220302 22:00:41.057" endtime="20220302 22:00:41.058"/>
+</kw>
+<kw name="Get a pet order" library="API_resources">
+<arg>${order_id}</arg>
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>1 min</arg>
+<arg>5s</arg>
+<arg>Send a GET request</arg>
+<arg>store/order/${order_id}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Send a GET request" library="API_resources">
+<arg>store/order/${order_id}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:00:41.059" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:00:41.059" endtime="20220302 22:00:41.059"/>
+</kw>
+<kw name="Get On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:00:41.160" level="INFO">GET Request : url=https://petstore.swagger.io/v2/store/order/17 
+ path_url=/v2/store/order/17 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:00:41.160" level="INFO">GET Response : url=https://petstore.swagger.io/v2/store/order/17 
+ status=404, reason=Not Found 
+ headers={'Date': 'Thu, 03 Mar 2022 03:00:41 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"code":1,"type":"error","message":"Order not found"} 
+ </msg>
+<msg timestamp="20220302 22:00:41.160" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:00:41.161" level="FAIL">Url: https://petstore.swagger.io/v2/store/order/17 Expected status: 404 != 200</msg>
+<status status="FAIL" starttime="20220302 22:00:41.059" endtime="20220302 22:00:41.161"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="NOT RUN" starttime="20220302 22:00:41.161" endtime="20220302 22:00:41.161"/>
+</kw>
+<status status="FAIL" starttime="20220302 22:00:41.058" endtime="20220302 22:00:41.161"/>
+</kw>
+<kw name="Send a GET request" library="API_resources">
+<arg>store/order/${order_id}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:00:46.164" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:00:46.163" endtime="20220302 22:00:46.164"/>
+</kw>
+<kw name="Get On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:00:46.272" level="INFO">GET Request : url=https://petstore.swagger.io/v2/store/order/17 
+ path_url=/v2/store/order/17 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:00:46.272" level="INFO">GET Response : url=https://petstore.swagger.io/v2/store/order/17 
+ status=404, reason=Not Found 
+ headers={'Date': 'Thu, 03 Mar 2022 03:00:46 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"code":1,"type":"error","message":"Order not found"} 
+ </msg>
+<msg timestamp="20220302 22:00:46.272" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:00:46.273" level="FAIL">Url: https://petstore.swagger.io/v2/store/order/17 Expected status: 404 != 200</msg>
+<status status="FAIL" starttime="20220302 22:00:46.164" endtime="20220302 22:00:46.273"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="NOT RUN" starttime="20220302 22:00:46.273" endtime="20220302 22:00:46.273"/>
+</kw>
+<status status="FAIL" starttime="20220302 22:00:46.162" endtime="20220302 22:00:46.274"/>
+</kw>
+<kw name="Send a GET request" library="API_resources">
+<arg>store/order/${order_id}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:00:51.277" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:00:51.277" endtime="20220302 22:00:51.277"/>
+</kw>
+<kw name="Get On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:00:51.378" level="INFO">GET Request : url=https://petstore.swagger.io/v2/store/order/17 
+ path_url=/v2/store/order/17 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:00:51.378" level="INFO">GET Response : url=https://petstore.swagger.io/v2/store/order/17 
+ status=200, reason=OK 
+ headers={'Date': 'Thu, 03 Mar 2022 03:00:51 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"id":17,"petId":123,"quantity":1,"shipDate":"2022-03-02T00:00:00.000+0000","complete":false} 
+ </msg>
+<msg timestamp="20220302 22:00:51.378" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:00:51.378" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:00:51.277" endtime="20220302 22:00:51.378"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:51.379" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:00:51.379" endtime="20220302 22:00:51.379"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:51.275" endtime="20220302 22:00:51.380"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:41.058" endtime="20220302 22:00:51.380"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20220302 22:00:51.381" level="INFO">{"id":17,"petId":123,"quantity":1,"shipDate":"2022-03-02T00:00:00.000+0000","complete":false}</msg>
+<status status="PASS" starttime="20220302 22:00:51.380" endtime="20220302 22:00:51.381"/>
+</kw>
+<kw name="Get The Json Response Data" library="API_resources">
+<kw name="Evaluate" library="BuiltIn">
+<var>${response}</var>
+<arg>json.loads("""${logs}""")</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220302 22:00:51.383" level="INFO">${response} = {'id': 17, 'petId': 123, 'quantity': 1, 'shipDate': '2022-03-02T00:00:00.000+0000', 'complete': False}</msg>
+<status status="PASS" starttime="20220302 22:00:51.382" endtime="20220302 22:00:51.383"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:51.383" level="INFO">${response} = {'id': 17, 'petId': 123, 'quantity': 1, 'shipDate': '2022-03-02T00:00:00.000+0000', 'complete': False}</msg>
+<status status="PASS" starttime="20220302 22:00:51.383" endtime="20220302 22:00:51.383"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:51.381" endtime="20220302 22:00:51.383"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:41.058" endtime="20220302 22:00:51.384"/>
+</kw>
+<kw name="Get attribute value" library="API_resources">
+<var>${id}</var>
+<arg>$.id</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${att_value}</var>
+<arg>${source}</arg>
+<arg>${att}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220302 22:00:51.411" level="INFO">${att_value} = [17]</msg>
+<status status="PASS" starttime="20220302 22:00:51.384" endtime="20220302 22:00:51.411"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220302 22:00:51.412" level="INFO">${att_value} = [17]</msg>
+<status status="PASS" starttime="20220302 22:00:51.412" endtime="20220302 22:00:51.412"/>
+</kw>
+<kw name="Remove String" library="String">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<arg>[</arg>
+<arg>'</arg>
+<arg>]</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<msg timestamp="20220302 22:00:51.412" level="INFO">${att_value} = 17</msg>
+<status status="PASS" starttime="20220302 22:00:51.412" endtime="20220302 22:00:51.412"/>
+</kw>
+<msg timestamp="20220302 22:00:51.413" level="INFO">${id} = 17</msg>
+<status status="PASS" starttime="20220302 22:00:51.384" endtime="20220302 22:00:51.413"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${id}</arg>
+<arg>${order_id}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220302 22:00:51.413" endtime="20220302 22:00:51.413"/>
+</kw>
+<kw name="Get attribute value" library="API_resources">
+<var>${pet_id}</var>
+<arg>$.petId</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${att_value}</var>
+<arg>${source}</arg>
+<arg>${att}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220302 22:00:51.437" level="INFO">${att_value} = [123]</msg>
+<status status="PASS" starttime="20220302 22:00:51.414" endtime="20220302 22:00:51.437"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220302 22:00:51.438" level="INFO">${att_value} = [123]</msg>
+<status status="PASS" starttime="20220302 22:00:51.437" endtime="20220302 22:00:51.438"/>
+</kw>
+<kw name="Remove String" library="String">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<arg>[</arg>
+<arg>'</arg>
+<arg>]</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<msg timestamp="20220302 22:00:51.438" level="INFO">${att_value} = 123</msg>
+<status status="PASS" starttime="20220302 22:00:51.438" endtime="20220302 22:00:51.438"/>
+</kw>
+<msg timestamp="20220302 22:00:51.438" level="INFO">${pet_id} = 123</msg>
+<status status="PASS" starttime="20220302 22:00:51.414" endtime="20220302 22:00:51.438"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${pet_id}</arg>
+<arg>123</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220302 22:00:51.438" endtime="20220302 22:00:51.439"/>
+</kw>
+<kw name="Delete a pet order" library="API_resources" type="TEARDOWN">
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>1 min</arg>
+<arg>5s</arg>
+<arg>Send a DELETE request</arg>
+<arg>store/order/${order_id}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Send a DELETE request" library="API_resources">
+<arg>store/order/${order_id}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:00:51.441" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:00:51.440" endtime="20220302 22:00:51.441"/>
+</kw>
+<kw name="Delete On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:00:51.541" level="INFO">DELETE Request : url=https://petstore.swagger.io/v2/store/order/17 
+ path_url=/v2/store/order/17 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:00:51.541" level="INFO">DELETE Response : url=https://petstore.swagger.io/v2/store/order/17 
+ status=404, reason=Not Found 
+ headers={'Date': 'Thu, 03 Mar 2022 03:00:51 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"code":404,"type":"unknown","message":"Order Not Found"} 
+ </msg>
+<msg timestamp="20220302 22:00:51.542" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:00:51.542" level="INFO">${response} = None</msg>
+<msg timestamp="20220302 22:00:51.542" level="FAIL">Url: https://petstore.swagger.io/v2/store/order/17 Expected status: 404 != 200</msg>
+<status status="FAIL" starttime="20220302 22:00:51.441" endtime="20220302 22:00:51.543"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:51.543" level="INFO">${response} = None</msg>
+<status status="PASS" starttime="20220302 22:00:51.543" endtime="20220302 22:00:51.543"/>
+</kw>
+<status status="FAIL" starttime="20220302 22:00:51.440" endtime="20220302 22:00:51.544"/>
+</kw>
+<kw name="Send a DELETE request" library="API_resources">
+<arg>store/order/${order_id}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:00:56.547" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:00:56.547" endtime="20220302 22:00:56.547"/>
+</kw>
+<kw name="Delete On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:00:56.649" level="INFO">DELETE Request : url=https://petstore.swagger.io/v2/store/order/17 
+ path_url=/v2/store/order/17 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:00:56.650" level="INFO">DELETE Response : url=https://petstore.swagger.io/v2/store/order/17 
+ status=404, reason=Not Found 
+ headers={'Date': 'Thu, 03 Mar 2022 03:00:56 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"code":404,"type":"unknown","message":"Order Not Found"} 
+ </msg>
+<msg timestamp="20220302 22:00:56.650" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:00:56.650" level="INFO">${response} = None</msg>
+<msg timestamp="20220302 22:00:56.650" level="FAIL">Url: https://petstore.swagger.io/v2/store/order/17 Expected status: 404 != 200</msg>
+<status status="FAIL" starttime="20220302 22:00:56.547" endtime="20220302 22:00:56.651"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:00:56.651" level="INFO">${response} = None</msg>
+<status status="PASS" starttime="20220302 22:00:56.651" endtime="20220302 22:00:56.651"/>
+</kw>
+<status status="FAIL" starttime="20220302 22:00:56.545" endtime="20220302 22:00:56.652"/>
+</kw>
+<kw name="Send a DELETE request" library="API_resources">
+<arg>store/order/${order_id}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:01:01.654" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:01:01.654" endtime="20220302 22:01:01.654"/>
+</kw>
+<kw name="Delete On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:01:01.756" level="INFO">DELETE Request : url=https://petstore.swagger.io/v2/store/order/17 
+ path_url=/v2/store/order/17 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:01:01.756" level="INFO">DELETE Response : url=https://petstore.swagger.io/v2/store/order/17 
+ status=404, reason=Not Found 
+ headers={'Date': 'Thu, 03 Mar 2022 03:01:01 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"code":404,"type":"unknown","message":"Order Not Found"} 
+ </msg>
+<msg timestamp="20220302 22:01:01.757" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:01:01.757" level="INFO">${response} = None</msg>
+<msg timestamp="20220302 22:01:01.757" level="FAIL">Url: https://petstore.swagger.io/v2/store/order/17 Expected status: 404 != 200</msg>
+<status status="FAIL" starttime="20220302 22:01:01.654" endtime="20220302 22:01:01.757"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:01:01.758" level="INFO">${response} = None</msg>
+<status status="PASS" starttime="20220302 22:01:01.758" endtime="20220302 22:01:01.758"/>
+</kw>
+<status status="FAIL" starttime="20220302 22:01:01.652" endtime="20220302 22:01:01.759"/>
+</kw>
+<kw name="Send a DELETE request" library="API_resources">
+<arg>store/order/${order_id}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:01:06.761" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:01:06.760" endtime="20220302 22:01:06.761"/>
+</kw>
+<kw name="Delete On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:01:06.864" level="INFO">DELETE Request : url=https://petstore.swagger.io/v2/store/order/17 
+ path_url=/v2/store/order/17 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:01:06.864" level="INFO">DELETE Response : url=https://petstore.swagger.io/v2/store/order/17 
+ status=200, reason=OK 
+ headers={'Date': 'Thu, 03 Mar 2022 03:01:06 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"code":200,"type":"unknown","message":"17"} 
+ </msg>
+<msg timestamp="20220302 22:01:06.864" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:01:06.864" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:01:06.761" endtime="20220302 22:01:06.865"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:01:06.865" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:01:06.865" endtime="20220302 22:01:06.865"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:06.759" endtime="20220302 22:01:06.866"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:51.439" endtime="20220302 22:01:06.866"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20220302 22:01:06.867" level="INFO">{"code":200,"type":"unknown","message":"17"}</msg>
+<status status="PASS" starttime="20220302 22:01:06.866" endtime="20220302 22:01:06.867"/>
+</kw>
+<kw name="Get The Json Response Data" library="API_resources">
+<kw name="Evaluate" library="BuiltIn">
+<var>${response}</var>
+<arg>json.loads("""${logs}""")</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220302 22:01:06.869" level="INFO">${response} = {'code': 200, 'type': 'unknown', 'message': '17'}</msg>
+<status status="PASS" starttime="20220302 22:01:06.868" endtime="20220302 22:01:06.869"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:01:06.869" level="INFO">${response} = {'code': 200, 'type': 'unknown', 'message': '17'}</msg>
+<status status="PASS" starttime="20220302 22:01:06.869" endtime="20220302 22:01:06.869"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:06.867" endtime="20220302 22:01:06.870"/>
+</kw>
+<kw name="Get attribute value" library="API_resources">
+<var>${response_message}</var>
+<arg>$.message</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${att_value}</var>
+<arg>${source}</arg>
+<arg>${att}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220302 22:01:06.896" level="INFO">${att_value} = ['17']</msg>
+<status status="PASS" starttime="20220302 22:01:06.870" endtime="20220302 22:01:06.896"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220302 22:01:06.897" level="INFO">${att_value} = ['17']</msg>
+<status status="PASS" starttime="20220302 22:01:06.896" endtime="20220302 22:01:06.897"/>
+</kw>
+<kw name="Remove String" library="String">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<arg>[</arg>
+<arg>'</arg>
+<arg>]</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<msg timestamp="20220302 22:01:06.897" level="INFO">${att_value} = 17</msg>
+<status status="PASS" starttime="20220302 22:01:06.897" endtime="20220302 22:01:06.897"/>
+</kw>
+<msg timestamp="20220302 22:01:06.897" level="INFO">${response_message} = 17</msg>
+<status status="PASS" starttime="20220302 22:01:06.870" endtime="20220302 22:01:06.897"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${response_message}</arg>
+<arg>${order_id}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220302 22:01:06.897" endtime="20220302 22:01:06.898"/>
+</kw>
+<status status="PASS" starttime="20220302 22:00:51.439" endtime="20220302 22:01:06.898"/>
+</kw>
+<tag>id=8</tag>
+<status status="PASS" starttime="20220302 22:00:40.826" endtime="20220302 22:01:06.898"/>
+</test>
+<test id="s1-s1-t5" name="Verify a user can be created">
+<kw name="Create a user" library="API_resources">
+<kw name="Send a POST request" library="API_resources">
+<arg>user</arg>
+<arg>${user_payload}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:01:06.900" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:01:06.899" endtime="20220302 22:01:06.900"/>
+</kw>
+<kw name="Post On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>data=${body}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:01:07.001" level="INFO">POST Request : url=https://petstore.swagger.io/v2/user 
+ path_url=/v2/user 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '91'} 
+ body={"username":"test_username","firstName":"firstname","lastName":"lastname","phone":"111111"} 
+ </msg>
+<msg timestamp="20220302 22:01:07.001" level="INFO">POST Response : url=https://petstore.swagger.io/v2/user 
+ status=200, reason=OK 
+ headers={'Date': 'Thu, 03 Mar 2022 03:01:07 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"code":200,"type":"unknown","message":"595731"} 
+ </msg>
+<msg timestamp="20220302 22:01:07.001" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:01:07.002" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:01:06.900" endtime="20220302 22:01:07.002"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:01:07.002" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:01:07.002" endtime="20220302 22:01:07.002"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:06.899" endtime="20220302 22:01:07.003"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20220302 22:01:07.003" level="INFO">{"code":200,"type":"unknown","message":"595731"}</msg>
+<status status="PASS" starttime="20220302 22:01:07.003" endtime="20220302 22:01:07.003"/>
+</kw>
+<kw name="Get The Json Response Data" library="API_resources">
+<kw name="Evaluate" library="BuiltIn">
+<var>${response}</var>
+<arg>json.loads("""${logs}""")</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220302 22:01:07.005" level="INFO">${response} = {'code': 200, 'type': 'unknown', 'message': '595731'}</msg>
+<status status="PASS" starttime="20220302 22:01:07.004" endtime="20220302 22:01:07.005"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:01:07.005" level="INFO">${response} = {'code': 200, 'type': 'unknown', 'message': '595731'}</msg>
+<status status="PASS" starttime="20220302 22:01:07.005" endtime="20220302 22:01:07.005"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:07.004" endtime="20220302 22:01:07.006"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:06.899" endtime="20220302 22:01:07.006"/>
+</kw>
+<kw name="Get attribute value" library="API_resources">
+<var>${message}</var>
+<arg>$.message</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${att_value}</var>
+<arg>${source}</arg>
+<arg>${att}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220302 22:01:07.032" level="INFO">${att_value} = ['595731']</msg>
+<status status="PASS" starttime="20220302 22:01:07.006" endtime="20220302 22:01:07.032"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220302 22:01:07.033" level="INFO">${att_value} = ['595731']</msg>
+<status status="PASS" starttime="20220302 22:01:07.032" endtime="20220302 22:01:07.033"/>
+</kw>
+<kw name="Remove String" library="String">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<arg>[</arg>
+<arg>'</arg>
+<arg>]</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<msg timestamp="20220302 22:01:07.033" level="INFO">${att_value} = 595731</msg>
+<status status="PASS" starttime="20220302 22:01:07.033" endtime="20220302 22:01:07.033"/>
+</kw>
+<msg timestamp="20220302 22:01:07.033" level="INFO">${message} = 595731</msg>
+<status status="PASS" starttime="20220302 22:01:07.006" endtime="20220302 22:01:07.033"/>
+</kw>
+<kw name="Should Not Be Empty" library="BuiltIn">
+<arg>${message}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<msg timestamp="20220302 22:01:07.034" level="INFO">Length is 6</msg>
+<status status="PASS" starttime="20220302 22:01:07.034" endtime="20220302 22:01:07.034"/>
+</kw>
+<kw name="Delete a user" library="API_resources" type="TEARDOWN">
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>1 min</arg>
+<arg>5s</arg>
+<arg>Send a DELETE request</arg>
+<arg>user/${username}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Send a DELETE request" library="API_resources">
+<arg>user/${username}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:01:07.036" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:01:07.035" endtime="20220302 22:01:07.036"/>
+</kw>
+<kw name="Delete On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:01:07.136" level="INFO">DELETE Request : url=https://petstore.swagger.io/v2/user/test_username 
+ path_url=/v2/user/test_username 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:01:07.136" level="INFO">DELETE Response : url=https://petstore.swagger.io/v2/user/test_username 
+ status=404, reason=Not Found 
+ headers={'Date': 'Thu, 03 Mar 2022 03:01:07 GMT', 'Content-Length': '0', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:01:07.136" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:01:07.136" level="INFO">${response} = None</msg>
+<msg timestamp="20220302 22:01:07.137" level="FAIL">Url: https://petstore.swagger.io/v2/user/test_username Expected status: 404 != 200</msg>
+<status status="FAIL" starttime="20220302 22:01:07.036" endtime="20220302 22:01:07.137"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:01:07.138" level="INFO">${response} = None</msg>
+<status status="PASS" starttime="20220302 22:01:07.137" endtime="20220302 22:01:07.138"/>
+</kw>
+<status status="FAIL" starttime="20220302 22:01:07.035" endtime="20220302 22:01:07.138"/>
+</kw>
+<kw name="Send a DELETE request" library="API_resources">
+<arg>user/${username}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:01:12.142" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:01:12.142" endtime="20220302 22:01:12.142"/>
+</kw>
+<kw name="Delete On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:01:12.400" level="INFO">DELETE Request : url=https://petstore.swagger.io/v2/user/test_username 
+ path_url=/v2/user/test_username 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:01:12.400" level="INFO">DELETE Response : url=https://petstore.swagger.io/v2/user/test_username 
+ status=200, reason=OK 
+ headers={'Date': 'Thu, 03 Mar 2022 03:01:12 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"code":200,"type":"unknown","message":"test_username"} 
+ </msg>
+<msg timestamp="20220302 22:01:12.400" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:01:12.401" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:01:12.142" endtime="20220302 22:01:12.401"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:01:12.402" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:01:12.401" endtime="20220302 22:01:12.402"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:12.141" endtime="20220302 22:01:12.402"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:07.035" endtime="20220302 22:01:12.402"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20220302 22:01:12.403" level="INFO">{"code":200,"type":"unknown","message":"test_username"}</msg>
+<status status="PASS" starttime="20220302 22:01:12.402" endtime="20220302 22:01:12.403"/>
+</kw>
+<kw name="Get The Json Response Data" library="API_resources">
+<kw name="Evaluate" library="BuiltIn">
+<var>${response}</var>
+<arg>json.loads("""${logs}""")</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220302 22:01:12.405" level="INFO">${response} = {'code': 200, 'type': 'unknown', 'message': 'test_username'}</msg>
+<status status="PASS" starttime="20220302 22:01:12.404" endtime="20220302 22:01:12.405"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:01:12.406" level="INFO">${response} = {'code': 200, 'type': 'unknown', 'message': 'test_username'}</msg>
+<status status="PASS" starttime="20220302 22:01:12.405" endtime="20220302 22:01:12.406"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:12.403" endtime="20220302 22:01:12.406"/>
+</kw>
+<kw name="Get attribute value" library="API_resources">
+<var>${response_message}</var>
+<arg>$.message</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${att_value}</var>
+<arg>${source}</arg>
+<arg>${att}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220302 22:01:12.432" level="INFO">${att_value} = ['test_username']</msg>
+<status status="PASS" starttime="20220302 22:01:12.406" endtime="20220302 22:01:12.432"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220302 22:01:12.433" level="INFO">${att_value} = ['test_username']</msg>
+<status status="PASS" starttime="20220302 22:01:12.432" endtime="20220302 22:01:12.433"/>
+</kw>
+<kw name="Remove String" library="String">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<arg>[</arg>
+<arg>'</arg>
+<arg>]</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<msg timestamp="20220302 22:01:12.433" level="INFO">${att_value} = test_username</msg>
+<status status="PASS" starttime="20220302 22:01:12.433" endtime="20220302 22:01:12.433"/>
+</kw>
+<msg timestamp="20220302 22:01:12.433" level="INFO">${response_message} = test_username</msg>
+<status status="PASS" starttime="20220302 22:01:12.406" endtime="20220302 22:01:12.434"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${response_message}</arg>
+<arg>${username}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220302 22:01:12.434" endtime="20220302 22:01:12.434"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:07.034" endtime="20220302 22:01:12.434"/>
+</kw>
+<tag>id=9</tag>
+<status status="PASS" starttime="20220302 22:01:06.898" endtime="20220302 22:01:12.434"/>
+</test>
+<test id="s1-s1-t6" name="Verify a created user can be get with the id">
+<kw name="Create a user" library="API_resources" type="SETUP">
+<kw name="Send a POST request" library="API_resources">
+<arg>user</arg>
+<arg>${user_payload}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:01:12.436" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:01:12.436" endtime="20220302 22:01:12.436"/>
+</kw>
+<kw name="Post On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>data=${body}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:01:12.548" level="INFO">POST Request : url=https://petstore.swagger.io/v2/user 
+ path_url=/v2/user 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '91'} 
+ body={"username":"test_username","firstName":"firstname","lastName":"lastname","phone":"111111"} 
+ </msg>
+<msg timestamp="20220302 22:01:12.548" level="INFO">POST Response : url=https://petstore.swagger.io/v2/user 
+ status=200, reason=OK 
+ headers={'Date': 'Thu, 03 Mar 2022 03:01:12 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"code":200,"type":"unknown","message":"595732"} 
+ </msg>
+<msg timestamp="20220302 22:01:12.548" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:01:12.548" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:01:12.436" endtime="20220302 22:01:12.548"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:01:12.549" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:01:12.549" endtime="20220302 22:01:12.549"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:12.435" endtime="20220302 22:01:12.550"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20220302 22:01:12.551" level="INFO">{"code":200,"type":"unknown","message":"595732"}</msg>
+<status status="PASS" starttime="20220302 22:01:12.550" endtime="20220302 22:01:12.551"/>
+</kw>
+<kw name="Get The Json Response Data" library="API_resources">
+<kw name="Evaluate" library="BuiltIn">
+<var>${response}</var>
+<arg>json.loads("""${logs}""")</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220302 22:01:12.552" level="INFO">${response} = {'code': 200, 'type': 'unknown', 'message': '595732'}</msg>
+<status status="PASS" starttime="20220302 22:01:12.552" endtime="20220302 22:01:12.552"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:01:12.553" level="INFO">${response} = {'code': 200, 'type': 'unknown', 'message': '595732'}</msg>
+<status status="PASS" starttime="20220302 22:01:12.553" endtime="20220302 22:01:12.553"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:12.551" endtime="20220302 22:01:12.553"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:12.435" endtime="20220302 22:01:12.553"/>
+</kw>
+<kw name="Get attribute value" library="API_resources">
+<var>${user_id}</var>
+<arg>$.id</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${att_value}</var>
+<arg>${source}</arg>
+<arg>${att}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220302 22:01:12.580" level="INFO">${att_value} = []</msg>
+<status status="PASS" starttime="20220302 22:01:12.554" endtime="20220302 22:01:12.580"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220302 22:01:12.580" level="INFO">${att_value} = []</msg>
+<status status="PASS" starttime="20220302 22:01:12.580" endtime="20220302 22:01:12.580"/>
+</kw>
+<kw name="Remove String" library="String">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<arg>[</arg>
+<arg>'</arg>
+<arg>]</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<msg timestamp="20220302 22:01:12.581" level="INFO">${att_value} = </msg>
+<status status="PASS" starttime="20220302 22:01:12.580" endtime="20220302 22:01:12.581"/>
+</kw>
+<msg timestamp="20220302 22:01:12.581" level="INFO">${user_id} = </msg>
+<status status="PASS" starttime="20220302 22:01:12.554" endtime="20220302 22:01:12.581"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${user_id}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:01:12.582" level="INFO">${user_id} = </msg>
+<status status="PASS" starttime="20220302 22:01:12.581" endtime="20220302 22:01:12.582"/>
+</kw>
+<kw name="Get a user" library="API_resources">
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>1 min</arg>
+<arg>5s</arg>
+<arg>Send a GET request</arg>
+<arg>user/${username}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Send a GET request" library="API_resources">
+<arg>user/${username}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:01:12.583" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:01:12.583" endtime="20220302 22:01:12.583"/>
+</kw>
+<kw name="Get On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:01:12.731" level="INFO">GET Request : url=https://petstore.swagger.io/v2/user/test_username 
+ path_url=/v2/user/test_username 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:01:12.731" level="INFO">GET Response : url=https://petstore.swagger.io/v2/user/test_username 
+ status=404, reason=Not Found 
+ headers={'Date': 'Thu, 03 Mar 2022 03:01:12 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"code":1,"type":"error","message":"User not found"} 
+ </msg>
+<msg timestamp="20220302 22:01:12.731" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:01:12.732" level="FAIL">Url: https://petstore.swagger.io/v2/user/test_username Expected status: 404 != 200</msg>
+<status status="FAIL" starttime="20220302 22:01:12.583" endtime="20220302 22:01:12.732"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="NOT RUN" starttime="20220302 22:01:12.732" endtime="20220302 22:01:12.732"/>
+</kw>
+<status status="FAIL" starttime="20220302 22:01:12.582" endtime="20220302 22:01:12.733"/>
+</kw>
+<kw name="Send a GET request" library="API_resources">
+<arg>user/${username}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:01:17.735" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:01:17.735" endtime="20220302 22:01:17.735"/>
+</kw>
+<kw name="Get On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:01:17.847" level="INFO">GET Request : url=https://petstore.swagger.io/v2/user/test_username 
+ path_url=/v2/user/test_username 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:01:17.847" level="INFO">GET Response : url=https://petstore.swagger.io/v2/user/test_username 
+ status=404, reason=Not Found 
+ headers={'Date': 'Thu, 03 Mar 2022 03:01:17 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"code":1,"type":"error","message":"User not found"} 
+ </msg>
+<msg timestamp="20220302 22:01:17.847" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:01:17.848" level="FAIL">Url: https://petstore.swagger.io/v2/user/test_username Expected status: 404 != 200</msg>
+<status status="FAIL" starttime="20220302 22:01:17.735" endtime="20220302 22:01:17.848"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="NOT RUN" starttime="20220302 22:01:17.848" endtime="20220302 22:01:17.848"/>
+</kw>
+<status status="FAIL" starttime="20220302 22:01:17.733" endtime="20220302 22:01:17.849"/>
+</kw>
+<kw name="Send a GET request" library="API_resources">
+<arg>user/${username}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:01:22.853" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:01:22.852" endtime="20220302 22:01:22.853"/>
+</kw>
+<kw name="Get On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:01:23.041" level="INFO">GET Request : url=https://petstore.swagger.io/v2/user/test_username 
+ path_url=/v2/user/test_username 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:01:23.041" level="INFO">GET Response : url=https://petstore.swagger.io/v2/user/test_username 
+ status=404, reason=Not Found 
+ headers={'Date': 'Thu, 03 Mar 2022 03:01:23 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"code":1,"type":"error","message":"User not found"} 
+ </msg>
+<msg timestamp="20220302 22:01:23.041" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:01:23.041" level="FAIL">Url: https://petstore.swagger.io/v2/user/test_username Expected status: 404 != 200</msg>
+<status status="FAIL" starttime="20220302 22:01:22.853" endtime="20220302 22:01:23.042"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="NOT RUN" starttime="20220302 22:01:23.042" endtime="20220302 22:01:23.042"/>
+</kw>
+<status status="FAIL" starttime="20220302 22:01:22.851" endtime="20220302 22:01:23.042"/>
+</kw>
+<kw name="Send a GET request" library="API_resources">
+<arg>user/${username}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:01:28.047" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:01:28.046" endtime="20220302 22:01:28.047"/>
+</kw>
+<kw name="Get On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:01:28.233" level="INFO">GET Request : url=https://petstore.swagger.io/v2/user/test_username 
+ path_url=/v2/user/test_username 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:01:28.234" level="INFO">GET Response : url=https://petstore.swagger.io/v2/user/test_username 
+ status=404, reason=Not Found 
+ headers={'Date': 'Thu, 03 Mar 2022 03:01:28 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"code":1,"type":"error","message":"User not found"} 
+ </msg>
+<msg timestamp="20220302 22:01:28.234" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:01:28.234" level="FAIL">Url: https://petstore.swagger.io/v2/user/test_username Expected status: 404 != 200</msg>
+<status status="FAIL" starttime="20220302 22:01:28.047" endtime="20220302 22:01:28.234"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="NOT RUN" starttime="20220302 22:01:28.235" endtime="20220302 22:01:28.235"/>
+</kw>
+<status status="FAIL" starttime="20220302 22:01:28.045" endtime="20220302 22:01:28.235"/>
+</kw>
+<kw name="Send a GET request" library="API_resources">
+<arg>user/${username}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:01:33.239" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:01:33.239" endtime="20220302 22:01:33.239"/>
+</kw>
+<kw name="Get On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:01:33.362" level="INFO">GET Request : url=https://petstore.swagger.io/v2/user/test_username 
+ path_url=/v2/user/test_username 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:01:33.362" level="INFO">GET Response : url=https://petstore.swagger.io/v2/user/test_username 
+ status=404, reason=Not Found 
+ headers={'Date': 'Thu, 03 Mar 2022 03:01:33 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"code":1,"type":"error","message":"User not found"} 
+ </msg>
+<msg timestamp="20220302 22:01:33.362" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:01:33.363" level="FAIL">Url: https://petstore.swagger.io/v2/user/test_username Expected status: 404 != 200</msg>
+<status status="FAIL" starttime="20220302 22:01:33.239" endtime="20220302 22:01:33.363"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="NOT RUN" starttime="20220302 22:01:33.363" endtime="20220302 22:01:33.364"/>
+</kw>
+<status status="FAIL" starttime="20220302 22:01:33.238" endtime="20220302 22:01:33.364"/>
+</kw>
+<kw name="Send a GET request" library="API_resources">
+<arg>user/${username}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:01:38.367" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:01:38.367" endtime="20220302 22:01:38.367"/>
+</kw>
+<kw name="Get On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:01:38.602" level="INFO">GET Request : url=https://petstore.swagger.io/v2/user/test_username 
+ path_url=/v2/user/test_username 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:01:38.602" level="INFO">GET Response : url=https://petstore.swagger.io/v2/user/test_username 
+ status=200, reason=OK 
+ headers={'Date': 'Thu, 03 Mar 2022 03:01:38 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"id":595683,"username":"test_username","firstName":"firstname","lastName":"lastname","phone":"111111","userStatus":0} 
+ </msg>
+<msg timestamp="20220302 22:01:38.602" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:01:38.602" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:01:38.368" endtime="20220302 22:01:38.602"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:01:38.603" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:01:38.603" endtime="20220302 22:01:38.603"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:38.366" endtime="20220302 22:01:38.604"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:12.582" endtime="20220302 22:01:38.604"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20220302 22:01:38.605" level="INFO">{"id":595683,"username":"test_username","firstName":"firstname","lastName":"lastname","phone":"111111","userStatus":0}</msg>
+<status status="PASS" starttime="20220302 22:01:38.604" endtime="20220302 22:01:38.605"/>
+</kw>
+<kw name="Get The Json Response Data" library="API_resources">
+<kw name="Evaluate" library="BuiltIn">
+<var>${response}</var>
+<arg>json.loads("""${logs}""")</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220302 22:01:38.606" level="INFO">${response} = {'id': 595683, 'username': 'test_username', 'firstName': 'firstname', 'lastName': 'lastname', 'phone': '111111', 'userStatus': 0}</msg>
+<status status="PASS" starttime="20220302 22:01:38.606" endtime="20220302 22:01:38.606"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:01:38.607" level="INFO">${response} = {'id': 595683, 'username': 'test_username', 'firstName': 'firstname', 'lastName': 'lastname', 'phone': '111111', 'userStatus': 0}</msg>
+<status status="PASS" starttime="20220302 22:01:38.607" endtime="20220302 22:01:38.607"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:38.605" endtime="20220302 22:01:38.607"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:12.582" endtime="20220302 22:01:38.608"/>
+</kw>
+<kw name="Get attribute value" library="API_resources">
+<var>${response_username}</var>
+<arg>$.username</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${att_value}</var>
+<arg>${source}</arg>
+<arg>${att}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220302 22:01:38.633" level="INFO">${att_value} = ['test_username']</msg>
+<status status="PASS" starttime="20220302 22:01:38.608" endtime="20220302 22:01:38.633"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220302 22:01:38.633" level="INFO">${att_value} = ['test_username']</msg>
+<status status="PASS" starttime="20220302 22:01:38.633" endtime="20220302 22:01:38.633"/>
+</kw>
+<kw name="Remove String" library="String">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<arg>[</arg>
+<arg>'</arg>
+<arg>]</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<msg timestamp="20220302 22:01:38.634" level="INFO">${att_value} = test_username</msg>
+<status status="PASS" starttime="20220302 22:01:38.633" endtime="20220302 22:01:38.634"/>
+</kw>
+<msg timestamp="20220302 22:01:38.634" level="INFO">${response_username} = test_username</msg>
+<status status="PASS" starttime="20220302 22:01:38.608" endtime="20220302 22:01:38.634"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${response_username}</arg>
+<arg>${username}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220302 22:01:38.634" endtime="20220302 22:01:38.634"/>
+</kw>
+<kw name="Delete a user" library="API_resources" type="TEARDOWN">
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>1 min</arg>
+<arg>5s</arg>
+<arg>Send a DELETE request</arg>
+<arg>user/${username}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Send a DELETE request" library="API_resources">
+<arg>user/${username}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:01:38.636" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:01:38.636" endtime="20220302 22:01:38.636"/>
+</kw>
+<kw name="Delete On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:01:38.755" level="INFO">DELETE Request : url=https://petstore.swagger.io/v2/user/test_username 
+ path_url=/v2/user/test_username 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:01:38.755" level="INFO">DELETE Response : url=https://petstore.swagger.io/v2/user/test_username 
+ status=404, reason=Not Found 
+ headers={'Date': 'Thu, 03 Mar 2022 03:01:38 GMT', 'Content-Length': '0', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:01:38.755" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:01:38.756" level="INFO">${response} = None</msg>
+<msg timestamp="20220302 22:01:38.756" level="FAIL">Url: https://petstore.swagger.io/v2/user/test_username Expected status: 404 != 200</msg>
+<status status="FAIL" starttime="20220302 22:01:38.636" endtime="20220302 22:01:38.756"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:01:38.757" level="INFO">${response} = None</msg>
+<status status="PASS" starttime="20220302 22:01:38.756" endtime="20220302 22:01:38.757"/>
+</kw>
+<status status="FAIL" starttime="20220302 22:01:38.635" endtime="20220302 22:01:38.757"/>
+</kw>
+<kw name="Send a DELETE request" library="API_resources">
+<arg>user/${username}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:01:43.760" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:01:43.760" endtime="20220302 22:01:43.761"/>
+</kw>
+<kw name="Delete On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:01:43.927" level="INFO">DELETE Request : url=https://petstore.swagger.io/v2/user/test_username 
+ path_url=/v2/user/test_username 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:01:43.927" level="INFO">DELETE Response : url=https://petstore.swagger.io/v2/user/test_username 
+ status=404, reason=Not Found 
+ headers={'Date': 'Thu, 03 Mar 2022 03:01:44 GMT', 'Content-Length': '0', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:01:43.927" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:01:43.928" level="INFO">${response} = None</msg>
+<msg timestamp="20220302 22:01:43.928" level="FAIL">Url: https://petstore.swagger.io/v2/user/test_username Expected status: 404 != 200</msg>
+<status status="FAIL" starttime="20220302 22:01:43.761" endtime="20220302 22:01:43.928"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:01:43.929" level="INFO">${response} = None</msg>
+<status status="PASS" starttime="20220302 22:01:43.929" endtime="20220302 22:01:43.929"/>
+</kw>
+<status status="FAIL" starttime="20220302 22:01:43.759" endtime="20220302 22:01:43.930"/>
+</kw>
+<kw name="Send a DELETE request" library="API_resources">
+<arg>user/${username}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220302 22:01:48.933" level="INFO">${HEADERS} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<status status="PASS" starttime="20220302 22:01:48.932" endtime="20220302 22:01:48.933"/>
+</kw>
+<kw name="Delete On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>pets</arg>
+<arg>url=/${endpoint}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20220302 22:01:49.075" level="INFO">DELETE Request : url=https://petstore.swagger.io/v2/user/test_username 
+ path_url=/v2/user/test_username 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20220302 22:01:49.075" level="INFO">DELETE Response : url=https://petstore.swagger.io/v2/user/test_username 
+ status=200, reason=OK 
+ headers={'Date': 'Thu, 03 Mar 2022 03:01:49 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.2.9.v20150224)'} 
+ body={"code":200,"type":"unknown","message":"test_username"} 
+ </msg>
+<msg timestamp="20220302 22:01:49.075" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220302 22:01:49.075" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:01:48.933" endtime="20220302 22:01:49.075"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:01:49.076" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220302 22:01:49.075" endtime="20220302 22:01:49.076"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:48.931" endtime="20220302 22:01:49.076"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:38.635" endtime="20220302 22:01:49.076"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20220302 22:01:49.077" level="INFO">{"code":200,"type":"unknown","message":"test_username"}</msg>
+<status status="PASS" starttime="20220302 22:01:49.076" endtime="20220302 22:01:49.077"/>
+</kw>
+<kw name="Get The Json Response Data" library="API_resources">
+<kw name="Evaluate" library="BuiltIn">
+<var>${response}</var>
+<arg>json.loads("""${logs}""")</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220302 22:01:49.078" level="INFO">${response} = {'code': 200, 'type': 'unknown', 'message': 'test_username'}</msg>
+<status status="PASS" starttime="20220302 22:01:49.078" endtime="20220302 22:01:49.078"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220302 22:01:49.078" level="INFO">${response} = {'code': 200, 'type': 'unknown', 'message': 'test_username'}</msg>
+<status status="PASS" starttime="20220302 22:01:49.078" endtime="20220302 22:01:49.078"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:49.077" endtime="20220302 22:01:49.078"/>
+</kw>
+<kw name="Get attribute value" library="API_resources">
+<var>${response_message}</var>
+<arg>$.message</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${att_value}</var>
+<arg>${source}</arg>
+<arg>${att}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220302 22:01:49.098" level="INFO">${att_value} = ['test_username']</msg>
+<status status="PASS" starttime="20220302 22:01:49.079" endtime="20220302 22:01:49.098"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220302 22:01:49.098" level="INFO">${att_value} = ['test_username']</msg>
+<status status="PASS" starttime="20220302 22:01:49.098" endtime="20220302 22:01:49.098"/>
+</kw>
+<kw name="Remove String" library="String">
+<var>${att_value}</var>
+<arg>${att_value}</arg>
+<arg>[</arg>
+<arg>'</arg>
+<arg>]</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<msg timestamp="20220302 22:01:49.098" level="INFO">${att_value} = test_username</msg>
+<status status="PASS" starttime="20220302 22:01:49.098" endtime="20220302 22:01:49.098"/>
+</kw>
+<msg timestamp="20220302 22:01:49.098" level="INFO">${response_message} = test_username</msg>
+<status status="PASS" starttime="20220302 22:01:49.078" endtime="20220302 22:01:49.098"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${response_message}</arg>
+<arg>${username}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220302 22:01:49.099" endtime="20220302 22:01:49.099"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:38.635" endtime="20220302 22:01:49.099"/>
+</kw>
+<tag>id=10</tag>
+<status status="PASS" starttime="20220302 22:01:12.435" endtime="20220302 22:01:49.099"/>
+</test>
+<status status="PASS" starttime="20220302 22:00:18.460" endtime="20220302 22:01:49.100"/>
+</suite>
+<suite id="s1-s2" name="UI TestCases" source="/Users/yacelismata/Documents/SpriteCloud/TestSuite/UI_TestCases.robot">
+<test id="s1-s2-t1" name="Go to the site and verify the content is correct">
+<kw name="Go to the site" library="UI_resources" type="SETUP">
+<kw name="Launch Browser" library="UI_resources">
+<arg>${ui_test_url}</arg>
+<kw name="Evaluate" library="BuiltIn">
+<var>${chrome_options}</var>
+<arg>sys.modules['selenium.webdriver'].ChromeOptions()</arg>
+<arg>sys, selenium.webdriver</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220302 22:01:49.241" level="INFO">${chrome_options} = &lt;selenium.webdriver.chrome.options.Options object at 0x7fc2b3cd7e50&gt;</msg>
+<status status="PASS" starttime="20220302 22:01:49.241" endtime="20220302 22:01:49.241"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_argument</arg>
+<arg>--headless</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20220302 22:01:49.241" endtime="20220302 22:01:49.241"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_argument</arg>
+<arg>--no-sandbox</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20220302 22:01:49.241" endtime="20220302 22:01:49.242"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-setuid-sandbox</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20220302 22:01:49.242" endtime="20220302 22:01:49.242"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-dev-shm-usage</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20220302 22:01:49.242" endtime="20220302 22:01:49.242"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-extensions</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20220302 22:01:49.242" endtime="20220302 22:01:49.242"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-gpu</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20220302 22:01:49.242" endtime="20220302 22:01:49.243"/>
+</kw>
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${url}</arg>
+<arg>browser=${BROWSER_TYPE}</arg>
+<arg>options=${chrome_options}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20220302 22:01:49.243" level="INFO">Opening browser 'chrome' to base url 'http://www.uitestingplayground.com/'.</msg>
+<status status="PASS" starttime="20220302 22:01:49.243" endtime="20220302 22:01:51.637"/>
+</kw>
+<kw name="Set Window Size" library="SeleniumLibrary">
+<arg>1541</arg>
+<arg>942</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" starttime="20220302 22:01:51.638" endtime="20220302 22:01:51.745"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:49.240" endtime="20220302 22:01:51.745"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:49.240" endtime="20220302 22:01:51.746"/>
+</kw>
+<kw name="Page Should Contain Element" library="SeleniumLibrary">
+<arg>${menu_logo}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<msg timestamp="20220302 22:01:51.758" level="INFO">Current page contains element '//a[@class="navbar-brand"][contains(text(),'UITAP')]'.</msg>
+<status status="PASS" starttime="20220302 22:01:51.746" endtime="20220302 22:01:51.758"/>
+</kw>
+<kw name="Page Should Contain Element" library="SeleniumLibrary">
+<arg>${menu_home}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<msg timestamp="20220302 22:01:51.767" level="INFO">Current page contains element '//a[@class="nav-link"][contains(text(),'Home')]'.</msg>
+<status status="PASS" starttime="20220302 22:01:51.759" endtime="20220302 22:01:51.767"/>
+</kw>
+<kw name="Page Should Contain Element" library="SeleniumLibrary">
+<arg>${menu_resources}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<msg timestamp="20220302 22:01:51.775" level="INFO">Current page contains element '//a[@class="nav-link"][contains(text(),'Resources')]'.</msg>
+<status status="PASS" starttime="20220302 22:01:51.767" endtime="20220302 22:01:51.776"/>
+</kw>
+<kw name="Page Should Contain Element" library="SeleniumLibrary">
+<arg>${page_title}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<msg timestamp="20220302 22:01:51.784" level="INFO">Current page contains element '//h1[@id="title"][contains(text(),'UI Test Automation')]'.</msg>
+<status status="PASS" starttime="20220302 22:01:51.776" endtime="20220302 22:01:51.784"/>
+</kw>
+<kw name="Page Should Contain Element" library="SeleniumLibrary">
+<arg>${rubik_image}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<msg timestamp="20220302 22:01:51.792" level="INFO">Current page contains element '//img[@class="img-fluid"][@src="/static/cube.png"]'.</msg>
+<status status="PASS" starttime="20220302 22:01:51.784" endtime="20220302 22:01:51.792"/>
+</kw>
+<kw name="Page Should Contain Element" library="SeleniumLibrary">
+<arg>${page_title}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<msg timestamp="20220302 22:01:51.797" level="INFO">Current page contains element '//h1[@id="title"][contains(text(),'UI Test Automation')]'.</msg>
+<status status="PASS" starttime="20220302 22:01:51.793" endtime="20220302 22:01:51.797"/>
+</kw>
+<kw name="Verify all the options are displayed" library="UI_resources">
+<kw name="Create List" library="BuiltIn">
+<var>@{total_options}</var>
+<arg>${dynamic_id_option}</arg>
+<arg>${class_attribute_option}</arg>
+<arg>${hidden_layers_option}</arg>
+<arg>${load_delay_option}</arg>
+<arg>${ajax_data_option}</arg>
+<arg>${client_side_delay_option}</arg>
+<arg>${click_option}</arg>
+<arg>${text_input_option}</arg>
+<arg>${scrollsbars_option}</arg>
+<arg>${dynamic_table_option}</arg>
+<arg>${verify_text_option}</arg>
+<arg>${progress_bar_option}</arg>
+<arg>${visibility_option}</arg>
+<arg>${sample_app_option}</arg>
+<arg>${mouse_over_option}</arg>
+<arg>${non_breaking_space_option}</arg>
+<arg>${overlapped_element_option}</arg>
+<doc>Returns a list containing given items.</doc>
+<msg timestamp="20220302 22:01:51.799" level="INFO">@{total_options} = [ //a[contains(text(),'Dynamic ID')] | //a[contains(text(),'Class Attribute')] | //a[contains(text(),'Hidden Layers')] | //a[contains(text(),'Load Delay')] | //a[contains(text(),'AJAX Data')] | //a[co...</msg>
+<status status="PASS" starttime="20220302 22:01:51.798" endtime="20220302 22:01:51.799"/>
+</kw>
+<for flavor="IN">
+<var>${option}</var>
+<value>${total_options}</value>
+<iter>
+<var name="${option}">["//a[contains(text(),'Dynamic ID')]", "//a[contains(text(),'Class Attribute')]", "//a[contains(text(),'Hidden Layers')]", "//a[contains(text(),'Load Delay')]", "//a[contains(text(),'AJAX Data')]", "/...</var>
+<kw name="Page Should Contain Element" library="SeleniumLibrary">
+<arg>${option}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<msg timestamp="20220302 22:01:51.906" level="INFO">Current page contains element '["//a[contains(text(),'Dynamic ID')]", "//a[contains(text(),'Class Attribute')]", "//a[contains(text(),'Hidden Layers')]", "//a[contains(text(),'Load Delay')]", "//a[contains(text(),'AJAX Data')]", "//a[contains(text(),'Client Side Delay')]", "//a[contains(text(),'Click')]", "//a[contains(text(),'Text Input')]", "//a[contains(text(),'Scrollbars')]", "//a[contains(text(),'Dynamic Table')]", "//a[contains(text(),'Verify Text')]", "//a[contains(text(),'Progress Bar')]", "//a[contains(text(),'Visibility')]", "//a[contains(text(),'Sample App')]", '//*[@href="/mouseover"][contains(text(),\'Mouse Over\')]', "//a[contains(text(),'Non-Breaking Space')]", "//a[contains(text(),'Overlapped Element')]"]'.</msg>
+<status status="PASS" starttime="20220302 22:01:51.800" endtime="20220302 22:01:51.906"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:51.799" endtime="20220302 22:01:51.906"/>
+</iter>
+<status status="PASS" starttime="20220302 22:01:51.799" endtime="20220302 22:01:51.906"/>
+</for>
+<status status="PASS" starttime="20220302 22:01:51.797" endtime="20220302 22:01:51.907"/>
+</kw>
+<kw name="Close Browser" library="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20220302 22:01:51.907" endtime="20220302 22:01:51.971"/>
+</kw>
+<tag>id=1</tag>
+<status status="PASS" starttime="20220302 22:01:49.239" endtime="20220302 22:01:51.971"/>
+</test>
+<test id="s1-s2-t2" name="Verify the headers functionality">
+<kw name="Go to the site" library="UI_resources" type="SETUP">
+<kw name="Launch Browser" library="UI_resources">
+<arg>${ui_test_url}</arg>
+<kw name="Evaluate" library="BuiltIn">
+<var>${chrome_options}</var>
+<arg>sys.modules['selenium.webdriver'].ChromeOptions()</arg>
+<arg>sys, selenium.webdriver</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220302 22:01:51.973" level="INFO">${chrome_options} = &lt;selenium.webdriver.chrome.options.Options object at 0x7fc2b3d05b50&gt;</msg>
+<status status="PASS" starttime="20220302 22:01:51.973" endtime="20220302 22:01:51.973"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_argument</arg>
+<arg>--headless</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20220302 22:01:51.973" endtime="20220302 22:01:51.974"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_argument</arg>
+<arg>--no-sandbox</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20220302 22:01:51.974" endtime="20220302 22:01:51.974"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-setuid-sandbox</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20220302 22:01:51.974" endtime="20220302 22:01:51.974"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-dev-shm-usage</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20220302 22:01:51.975" endtime="20220302 22:01:51.975"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-extensions</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20220302 22:01:51.975" endtime="20220302 22:01:51.975"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-gpu</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20220302 22:01:51.975" endtime="20220302 22:01:51.976"/>
+</kw>
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${url}</arg>
+<arg>browser=${BROWSER_TYPE}</arg>
+<arg>options=${chrome_options}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20220302 22:01:51.976" level="INFO">Opening browser 'chrome' to base url 'http://www.uitestingplayground.com/'.</msg>
+<status status="PASS" starttime="20220302 22:01:51.976" endtime="20220302 22:01:54.337"/>
+</kw>
+<kw name="Set Window Size" library="SeleniumLibrary">
+<arg>1541</arg>
+<arg>942</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" starttime="20220302 22:01:54.338" endtime="20220302 22:01:54.443"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:51.973" endtime="20220302 22:01:54.444"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:51.972" endtime="20220302 22:01:54.444"/>
+</kw>
+<kw name="Select an option" library="UI_resources">
+<arg>${menu_resources}</arg>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${element}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20220302 22:01:54.445" endtime="20220302 22:01:54.469"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${element}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20220302 22:01:54.469" level="INFO">Clicking element '//a[@class="nav-link"][contains(text(),'Resources')]'.</msg>
+<status status="PASS" starttime="20220302 22:01:54.469" endtime="20220302 22:01:54.799"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:54.444" endtime="20220302 22:01:54.799"/>
+</kw>
+<kw name="Get Location" library="SeleniumLibrary">
+<var>${url}</var>
+<doc>Returns the current browser window URL.</doc>
+<msg timestamp="20220302 22:01:54.803" level="INFO">${url} = http://www.uitestingplayground.com/resources</msg>
+<status status="PASS" starttime="20220302 22:01:54.800" endtime="20220302 22:01:54.803"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${url}</arg>
+<arg>${ui_test_url}resources</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220302 22:01:54.803" endtime="20220302 22:01:54.803"/>
+</kw>
+<kw name="Verify the resources content" library="UI_resources">
+<kw name="Page Should Contain Element" library="SeleniumLibrary">
+<arg>${resources_title}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<msg timestamp="20220302 22:01:54.813" level="INFO">Current page contains element '//h3[contains(text(),'Resources')]'.</msg>
+<status status="PASS" starttime="20220302 22:01:54.804" endtime="20220302 22:01:54.813"/>
+</kw>
+<kw name="Page Should Contain Element" library="SeleniumLibrary">
+<arg>${learning_title}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<msg timestamp="20220302 22:01:54.821" level="INFO">Current page contains element '//h4[contains(text(),'Learning')]'.</msg>
+<status status="PASS" starttime="20220302 22:01:54.813" endtime="20220302 22:01:54.821"/>
+</kw>
+<kw name="Page Should Contain Element" library="SeleniumLibrary">
+<arg>${standards_title}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<msg timestamp="20220302 22:01:54.830" level="INFO">Current page contains element '//h4[contains(text(),'Standards')]'.</msg>
+<status status="PASS" starttime="20220302 22:01:54.822" endtime="20220302 22:01:54.830"/>
+</kw>
+<kw name="Page Should Contain Element" library="SeleniumLibrary">
+<arg>${articles_title}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<msg timestamp="20220302 22:01:54.838" level="INFO">Current page contains element '//h4[contains(text(),'Articles')]'.</msg>
+<status status="PASS" starttime="20220302 22:01:54.830" endtime="20220302 22:01:54.838"/>
+</kw>
+<kw name="Page Should Contain Element" library="SeleniumLibrary">
+<arg>${community_title}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<msg timestamp="20220302 22:01:54.846" level="INFO">Current page contains element '//h4[contains(text(),'Community')]'.</msg>
+<status status="PASS" starttime="20220302 22:01:54.838" endtime="20220302 22:01:54.846"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:54.803" endtime="20220302 22:01:54.846"/>
+</kw>
+<kw name="Select an option" library="UI_resources">
+<arg>${menu_logo}</arg>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${element}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20220302 22:01:54.846" endtime="20220302 22:01:54.862"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${element}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20220302 22:01:54.863" level="INFO">Clicking element '//a[@class="navbar-brand"][contains(text(),'UITAP')]'.</msg>
+<status status="PASS" starttime="20220302 22:01:54.862" endtime="20220302 22:01:55.247"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:54.846" endtime="20220302 22:01:55.247"/>
+</kw>
+<kw name="Get Location" library="SeleniumLibrary">
+<var>${url}</var>
+<doc>Returns the current browser window URL.</doc>
+<msg timestamp="20220302 22:01:55.251" level="INFO">${url} = http://www.uitestingplayground.com/</msg>
+<status status="PASS" starttime="20220302 22:01:55.247" endtime="20220302 22:01:55.251"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${url}</arg>
+<arg>${ui_test_url}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220302 22:01:55.251" endtime="20220302 22:01:55.251"/>
+</kw>
+<kw name="Page Should Contain Element" library="SeleniumLibrary">
+<arg>${rubik_image}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<msg timestamp="20220302 22:01:55.261" level="INFO">Current page contains element '//img[@class="img-fluid"][@src="/static/cube.png"]'.</msg>
+<status status="PASS" starttime="20220302 22:01:55.251" endtime="20220302 22:01:55.261"/>
+</kw>
+<kw name="Select an option" library="UI_resources">
+<arg>${menu_home}</arg>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${element}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20220302 22:01:55.261" endtime="20220302 22:01:55.279"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${element}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20220302 22:01:55.279" level="INFO">Clicking element '//a[@class="nav-link"][contains(text(),'Home')]'.</msg>
+<status status="PASS" starttime="20220302 22:01:55.279" endtime="20220302 22:01:55.611"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:55.261" endtime="20220302 22:01:55.612"/>
+</kw>
+<kw name="Get Location" library="SeleniumLibrary">
+<var>${url}</var>
+<doc>Returns the current browser window URL.</doc>
+<msg timestamp="20220302 22:01:55.614" level="INFO">${url} = http://www.uitestingplayground.com/home</msg>
+<status status="PASS" starttime="20220302 22:01:55.612" endtime="20220302 22:01:55.614"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${url}</arg>
+<arg>${ui_test_url}home</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220302 22:01:55.615" endtime="20220302 22:01:55.615"/>
+</kw>
+<kw name="Page Should Contain Element" library="SeleniumLibrary">
+<arg>${rubik_image}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<msg timestamp="20220302 22:01:55.621" level="INFO">Current page contains element '//img[@class="img-fluid"][@src="/static/cube.png"]'.</msg>
+<status status="PASS" starttime="20220302 22:01:55.615" endtime="20220302 22:01:55.621"/>
+</kw>
+<kw name="Close Browser" library="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20220302 22:01:55.621" endtime="20220302 22:01:55.684"/>
+</kw>
+<tag>id=2</tag>
+<status status="PASS" starttime="20220302 22:01:51.972" endtime="20220302 22:01:55.684"/>
+</test>
+<test id="s1-s2-t3" name="Try the Mouse Over option">
+<kw name="Go to the site" library="UI_resources" type="SETUP">
+<kw name="Launch Browser" library="UI_resources">
+<arg>${ui_test_url}</arg>
+<kw name="Evaluate" library="BuiltIn">
+<var>${chrome_options}</var>
+<arg>sys.modules['selenium.webdriver'].ChromeOptions()</arg>
+<arg>sys, selenium.webdriver</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220302 22:01:55.686" level="INFO">${chrome_options} = &lt;selenium.webdriver.chrome.options.Options object at 0x7fc2b3d18fd0&gt;</msg>
+<status status="PASS" starttime="20220302 22:01:55.686" endtime="20220302 22:01:55.686"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_argument</arg>
+<arg>--headless</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20220302 22:01:55.686" endtime="20220302 22:01:55.687"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_argument</arg>
+<arg>--no-sandbox</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20220302 22:01:55.687" endtime="20220302 22:01:55.687"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-setuid-sandbox</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20220302 22:01:55.687" endtime="20220302 22:01:55.687"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-dev-shm-usage</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20220302 22:01:55.687" endtime="20220302 22:01:55.688"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-extensions</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20220302 22:01:55.688" endtime="20220302 22:01:55.688"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-gpu</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20220302 22:01:55.688" endtime="20220302 22:01:55.689"/>
+</kw>
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${url}</arg>
+<arg>browser=${BROWSER_TYPE}</arg>
+<arg>options=${chrome_options}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20220302 22:01:55.689" level="INFO">Opening browser 'chrome' to base url 'http://www.uitestingplayground.com/'.</msg>
+<status status="PASS" starttime="20220302 22:01:55.689" endtime="20220302 22:01:58.089"/>
+</kw>
+<kw name="Set Window Size" library="SeleniumLibrary">
+<arg>1541</arg>
+<arg>942</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" starttime="20220302 22:01:58.089" endtime="20220302 22:01:58.196"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:55.685" endtime="20220302 22:01:58.197"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:55.685" endtime="20220302 22:01:58.197"/>
+</kw>
+<kw name="Generate a Number" library="UI_resources">
+<var>${value}</var>
+<kw name="Generate Random String" library="String">
+<var>${number}</var>
+<arg>1</arg>
+<arg>[NUMBERS]</arg>
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<msg timestamp="20220302 22:01:58.198" level="INFO">${number} = 1</msg>
+<status status="PASS" starttime="20220302 22:01:58.198" endtime="20220302 22:01:58.198"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${number}</var>
+<arg>${number}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220302 22:01:58.199" level="INFO">${number} = 1</msg>
+<status status="PASS" starttime="20220302 22:01:58.199" endtime="20220302 22:01:58.199"/>
+</kw>
+<msg timestamp="20220302 22:01:58.199" level="INFO">${value} = 1</msg>
+<status status="PASS" starttime="20220302 22:01:58.197" endtime="20220302 22:01:58.199"/>
+</kw>
+<kw name="Select an option" library="UI_resources">
+<arg>${mouse_over_option}</arg>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${element}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20220302 22:01:58.200" endtime="20220302 22:01:58.226"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${element}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20220302 22:01:58.227" level="INFO">Clicking element '//*[@href="/mouseover"][contains(text(),'Mouse Over')]'.</msg>
+<status status="PASS" starttime="20220302 22:01:58.227" endtime="20220302 22:01:58.605"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:58.200" endtime="20220302 22:01:58.605"/>
+</kw>
+<kw name="Repeat Keyword" library="BuiltIn">
+<arg>${value} times</arg>
+<arg>Click element</arg>
+<arg>${click_me_button}</arg>
+<doc>Executes the specified keyword multiple times.</doc>
+<msg timestamp="20220302 22:01:58.606" level="INFO">Repeating keyword, round 1/1.</msg>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${click_me_button}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20220302 22:01:58.606" level="INFO">Clicking element '//a[contains(text(),'Click me')]'.</msg>
+<status status="PASS" starttime="20220302 22:01:58.606" endtime="20220302 22:01:58.636"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:58.605" endtime="20220302 22:01:58.636"/>
+</kw>
+<kw name="Page Should Contain Element" library="SeleniumLibrary">
+<arg>//*[@id="clickCount"][contains(text(),'${value}')]</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<msg timestamp="20220302 22:01:58.644" level="INFO">Current page contains element '//*[@id="clickCount"][contains(text(),'1')]'.</msg>
+<status status="PASS" starttime="20220302 22:01:58.636" endtime="20220302 22:01:58.644"/>
+</kw>
+<kw name="Close Browser" library="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20220302 22:01:58.644" endtime="20220302 22:01:58.707"/>
+</kw>
+<tag>id=3</tag>
+<status status="PASS" starttime="20220302 22:01:55.684" endtime="20220302 22:01:58.707"/>
+</test>
+<test id="s1-s2-t4" name="Verify the mobile menu">
+<kw name="Go to the site" library="UI_resources" type="SETUP">
+<kw name="Launch Browser" library="UI_resources">
+<arg>${ui_test_url}</arg>
+<kw name="Evaluate" library="BuiltIn">
+<var>${chrome_options}</var>
+<arg>sys.modules['selenium.webdriver'].ChromeOptions()</arg>
+<arg>sys, selenium.webdriver</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220302 22:01:58.709" level="INFO">${chrome_options} = &lt;selenium.webdriver.chrome.options.Options object at 0x7fc2b3d1df40&gt;</msg>
+<status status="PASS" starttime="20220302 22:01:58.709" endtime="20220302 22:01:58.709"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_argument</arg>
+<arg>--headless</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20220302 22:01:58.709" endtime="20220302 22:01:58.710"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_argument</arg>
+<arg>--no-sandbox</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20220302 22:01:58.710" endtime="20220302 22:01:58.710"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-setuid-sandbox</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20220302 22:01:58.710" endtime="20220302 22:01:58.710"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-dev-shm-usage</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20220302 22:01:58.710" endtime="20220302 22:01:58.711"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-extensions</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20220302 22:01:58.711" endtime="20220302 22:01:58.711"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-gpu</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20220302 22:01:58.711" endtime="20220302 22:01:58.711"/>
+</kw>
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${url}</arg>
+<arg>browser=${BROWSER_TYPE}</arg>
+<arg>options=${chrome_options}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20220302 22:01:58.712" level="INFO">Opening browser 'chrome' to base url 'http://www.uitestingplayground.com/'.</msg>
+<status status="PASS" starttime="20220302 22:01:58.711" endtime="20220302 22:02:00.985"/>
+</kw>
+<kw name="Set Window Size" library="SeleniumLibrary">
+<arg>1541</arg>
+<arg>942</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" starttime="20220302 22:02:00.986" endtime="20220302 22:02:01.090"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:58.708" endtime="20220302 22:02:01.090"/>
+</kw>
+<status status="PASS" starttime="20220302 22:01:58.708" endtime="20220302 22:02:01.090"/>
+</kw>
+<kw name="Set Window Size" library="SeleniumLibrary">
+<arg>400</arg>
+<arg>855</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" starttime="20220302 22:02:01.091" endtime="20220302 22:02:01.196"/>
+</kw>
+<kw name="Select an option" library="UI_resources">
+<arg>${mobile_menu}</arg>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${element}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20220302 22:02:01.198" endtime="20220302 22:02:01.222"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${element}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20220302 22:02:01.223" level="INFO">Clicking element '//button[@class="navbar-toggler"]'.</msg>
+<status status="PASS" starttime="20220302 22:02:01.222" endtime="20220302 22:02:01.299"/>
+</kw>
+<status status="PASS" starttime="20220302 22:02:01.197" endtime="20220302 22:02:01.299"/>
+</kw>
+<kw name="Page Should Contain Element" library="SeleniumLibrary">
+<arg>${menu_home}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<msg timestamp="20220302 22:02:01.307" level="INFO">Current page contains element '//a[@class="nav-link"][contains(text(),'Home')]'.</msg>
+<status status="PASS" starttime="20220302 22:02:01.299" endtime="20220302 22:02:01.307"/>
+</kw>
+<kw name="Page Should Contain Element" library="SeleniumLibrary">
+<arg>${menu_resources}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<msg timestamp="20220302 22:02:01.316" level="INFO">Current page contains element '//a[@class="nav-link"][contains(text(),'Resources')]'.</msg>
+<status status="PASS" starttime="20220302 22:02:01.307" endtime="20220302 22:02:01.316"/>
+</kw>
+<kw name="Select an option" library="UI_resources">
+<arg>${menu_resources}</arg>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${element}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20220302 22:02:01.317" endtime="20220302 22:02:01.545"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${element}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20220302 22:02:01.545" level="INFO">Clicking element '//a[@class="nav-link"][contains(text(),'Resources')]'.</msg>
+<status status="PASS" starttime="20220302 22:02:01.545" endtime="20220302 22:02:01.857"/>
+</kw>
+<status status="PASS" starttime="20220302 22:02:01.316" endtime="20220302 22:02:01.857"/>
+</kw>
+<kw name="Page Should Contain Element" library="SeleniumLibrary">
+<arg>${mobile_menu}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<msg timestamp="20220302 22:02:01.862" level="INFO">Current page contains element '//button[@class="navbar-toggler"]'.</msg>
+<status status="PASS" starttime="20220302 22:02:01.857" endtime="20220302 22:02:01.863"/>
+</kw>
+<kw name="Close Browser" library="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20220302 22:02:01.863" endtime="20220302 22:02:01.925"/>
+</kw>
+<tag>id=4</tag>
+<status status="PASS" starttime="20220302 22:01:58.707" endtime="20220302 22:02:01.925"/>
+</test>
+<status status="PASS" starttime="20220302 22:01:49.102" endtime="20220302 22:02:01.926"/>
+</suite>
+<status status="PASS" starttime="20220302 22:00:18.435" endtime="20220302 22:02:01.929"/>
+</suite>
+<statistics>
+<total>
+<stat pass="10" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="0" skip="0">id=1</stat>
+<stat pass="1" fail="0" skip="0">id=10</stat>
+<stat pass="1" fail="0" skip="0">id=2</stat>
+<stat pass="1" fail="0" skip="0">id=3</stat>
+<stat pass="1" fail="0" skip="0">id=4</stat>
+<stat pass="1" fail="0" skip="0">id=5</stat>
+<stat pass="1" fail="0" skip="0">id=6</stat>
+<stat pass="1" fail="0" skip="0">id=7</stat>
+<stat pass="1" fail="0" skip="0">id=8</stat>
+<stat pass="1" fail="0" skip="0">id=9</stat>
+</tag>
+<suite>
+<stat pass="10" fail="0" skip="0" id="s1" name="TestSuite">TestSuite</stat>
+<stat pass="6" fail="0" skip="0" id="s1-s1" name="API TestCases">TestSuite.API TestCases</stat>
+<stat pass="4" fail="0" skip="0" id="s1-s2" name="UI TestCases">TestSuite.UI TestCases</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
