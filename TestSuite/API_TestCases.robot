@@ -25,9 +25,9 @@ Verify a created pet can be get by the id
     Should Be Equal    ${returned_id}    ${pet_id}
     ${pet_tag_name}    Get attribute value    $.tags..name
     IF    '${pet_tag_name}' == 'poodle'
-        Log To Console    The retrieved data is correct
+        Pass Execution    The retrieved data is correct
     ELSE
-        Log To Console    The retrieved data is incorrect
+        Fail    The retrieved data is incorrect
     END
     [Teardown]    Delete a pet
     
@@ -55,7 +55,12 @@ Verify a pet order can be retrieved using the order id
     ${id}    Get attribute value    $.id
     Should Be Equal    ${id}    ${order_id}
     ${pet_id}    Get attribute value    $.petId
-    Should Be Equal    ${pet_id}    123
+    #Should Be Equal    ${pet_id}    123
+    IF    '${pet_id}' == '123'
+        Pass Execution    The retrieved data is correct
+    ELSE
+        Fail    The retrieved data is incorrect
+    END
     [Teardown]    Delete a pet order
 
 Verify a user can be created
