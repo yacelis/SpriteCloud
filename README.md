@@ -22,6 +22,8 @@ To install these libraries, execute:
 
 ```pip install -r requirements.txt```
 
+Apart from the libraries, you will need chromedriver to run the UI test cases.
+
 ## How to run the tests locally:
 Clone the git repository and execute the following commands from the command line. For linux/mac: 
 
